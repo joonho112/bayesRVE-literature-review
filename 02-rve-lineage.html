@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; The frequentist RVE lineage owns it – A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-bayesian-gap.html" rel="next">
+<link href="./01-introduction.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-rve-lineage.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction &amp; the inferential mismatch</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-rve-lineage.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bayesian-gap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-calibrated-bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The calibrated-Bayes lens</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-why-bayesian-rve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Why Bayesian RVE specifically</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-gap-and-contribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-boundaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./98-appendix-claim-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix — Claim index (CL-IDs)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-appendix-database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Literature database &amp; pillar × theme map</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-field-default" id="toc-sec-field-default" class="nav-link active" data-scroll-target="#sec-field-default"><span class="header-section-number">2.1</span> 2.1 The established field-default</a></li>
+  <li><a href="#sec-what-targets" id="toc-sec-what-targets" class="nav-link" data-scroll-target="#sec-what-targets"><span class="header-section-number">2.2</span> 2.2 What the sandwich targets</a></li>
+  <li><a href="#sec-why-robust" id="toc-sec-why-robust" class="nav-link" data-scroll-target="#sec-why-robust"><span class="header-section-number">2.3</span> 2.3 Why the sandwich is robust</a></li>
+  <li><a href="#sec-small-m" id="toc-sec-small-m" class="nav-link" data-scroll-target="#sec-small-m"><span class="header-section-number">2.4</span> 2.4 The small-<em>m</em> discipline</a></li>
+  <li><a href="#sec-cr2-comparator" id="toc-sec-cr2-comparator" class="nav-link" data-scroll-target="#sec-cr2-comparator"><span class="header-section-number">2.5</span> 2.5 CR2 is a comparator, not the target</a></li>
+  <li><a href="#sec-design-class" id="toc-sec-design-class" class="nav-link" data-scroll-target="#sec-design-class"><span class="header-section-number">2.6</span> 2.6 The design-class distinction</a></li>
+  <li><a href="#sec-df-tooling" id="toc-sec-df-tooling" class="nav-link" data-scroll-target="#sec-df-tooling"><span class="header-section-number">2.7</span> 2.7 Satterthwaite df tuning and canonical tooling</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-rve-lineage" class="quarto-section-identifier"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Guardrails honored in this chapter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>G-15</strong> — RVE is asymptotically consistent in <em>m</em> (the number of studies), not <em>k</em> (the number of effect sizes); in small-<em>m</em> meta-analysis (especially <em>m</em> &lt; 8) Type I error inflates unless a <strong>named</strong> small-sample correction (HTZ, AHZ, CWB, or CR2) is applied. This chapter never asserts that uncorrected RVE controls Type I error in the small-<em>m</em> regime; every adequacy claim names its correction in the same sentence — the spine guard of the chapter.</li>
+<li><strong>G-03</strong> — Pustejovsky and Chen (2024, Theorem 2) proved the aggregated and correlated-effects likelihoods <em>proportional</em> — equal up to a parameter-free constant κ — never identical; exact identity is reserved downstream for this review’s own unit-weight-boundary result and is never read into the field’s proportionality result.</li>
+<li><strong>G-04 / G-14</strong> — CR2 (Bell–McCaffrey) is a <em>design-specific</em> comparator: it improves coverage on balanced designs but degrades under severe imbalance or skewed regressors, and its equality conditions hold only under compound-symmetric within-subgroup blocks and constant subgroup size; it is never universal, never covers all designs, and is never the calibration target.</li>
+</ul>
+<p>This chapter also carries forward <strong>G-05</strong> (when moderators vary within study it is the <em>aggregated</em> representation that ceases to exist, never the correlated-effects model) and <strong>G-25</strong> (the Godambe / estimating-equation substrate <em>motivates</em> the need for a correction; it does not supply one).</p>
+</div>
+</div>
+</div>
+<p>This chapter establishes the first leg of the funnel: the marginal RVE/CHE sandwich covariance that any Bayesian analogue must match is a <em>settled, owned</em> frequentist standard. It is owned not by a single paper but by a lineage: one apparatus that matured, link by link, from Hedges, Tipton and Johnson’s origin through Tipton’s small-sample discipline and Pustejovsky and Tipton’s working-model consolidation to Pustejovsky and Chen’s integrative capstone. The chronology carries the argument. Each link <em>extends rather than displaces</em> the one before it, so that what arrives at the end is the completion of a single standard rather than a competing estimator. The object that lineage owns is a specific covariance estimand, the marginal RVE/CHE sandwich covariance of the effect-size vector, and the conditions under which each of its properties holds are stated with care below, because it is that estimand, with those conditions, that any Bayesian analogue must measure itself against. The seven sections trace that maturation: what the lineage made the field-default, what its sandwich targets, why the target is robust, how it disciplined the small-sample regime, why CR2 is a comparator and not the target, which working model survives where the other breaks, and the degrees-of-freedom tuning and canonical software that instantiate the whole apparatus. This chapter renders the standard; it does not re-prove it.</p>
+<section id="sec-field-default" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-field-default"><span class="header-section-number">2.1</span> 2.1 The established field-default</h2>
+<p>Robust variance estimation is the established frequentist field-default for meta-analysis with dependent effect sizes, built from the cluster-sandwich and refined across the lineage from Hedges, Tipton and Johnson <span class="citation" data-cites="hedges2010">(<a href="references.html#ref-hedges2010" role="doc-biblioref">2010</a>)</span> through Tipton <span class="citation" data-cites="tipton2015a tipton2015b">(<a href="references.html#ref-tipton2015a" role="doc-biblioref">2015</a>; <a href="references.html#ref-tipton2015b" role="doc-biblioref">2015</a>)</span>, Pustejovsky and Tipton <span class="citation" data-cites="pustejovsky2022">(<a href="references.html#ref-pustejovsky2022" role="doc-biblioref">2022</a>)</span>, to Pustejovsky and Chen <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">2024</a>)</span>; its field-default status is documented both in the methodological lineage and in the practitioner-tutorial literature <span class="citation" data-cites="tannersmith2016">(<a href="references.html#ref-tannersmith2016" role="doc-biblioref">Tanner-Smith et al., 2016</a>)</span> <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-01">CL-P1-01</a>, POSITIONING)</span>. This is a framing claim about the structure of the frequentist literature, not a program theorem: the status is carried as POSITIONING, and the origin paper’s own theorem is held at the field level, never re-elevated.</p>
+<p><span class="citation" data-cites="hedges2010">Hedges et al. (<a href="references.html#ref-hedges2010" role="doc-biblioref">2010</a>)</span> is the origin: it establishes the cluster-sandwich as the frequentist apparatus for dependent-effect meta-regression, furnishing both a correlated/observation-level working model and the cluster-level residual-cross-product sandwich that estimates the marginal covariance of the effect-size vector. Tipton then disciplined the small-sample regime that the origin result left asymptotic <span class="citation" data-cites="tipton2015a">(<a href="references.html#ref-tipton2015a" role="doc-biblioref">Tipton, 2015</a>)</span> and extended the standard to multiple-contrast tests <span class="citation" data-cites="tipton2015b">(<a href="references.html#ref-tipton2015b" role="doc-biblioref">Tipton &amp; Pustejovsky, 2015</a>)</span>, each move <em>extending</em> rather than overturning Hedges, Tipton and Johnson. Pustejovsky and Tipton <span class="citation" data-cites="pustejovsky2022">(<a href="references.html#ref-pustejovsky2022" role="doc-biblioref">2022</a>)</span> consolidated the working-model choices — correlated-effects, hierarchical-effects, and their combination — into a single deployable framework, and Pustejovsky and Chen <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">2024</a>)</span> integrated the apparatus into one treatment of aggregated and correlated-effects representations, supplying the analytic equivalence and design-class results this chapter leans on. The status is documented from two directions at once. The methodological lineage names and extends the chain: the more recent multivariate and cross-domain entries <span class="citation" data-cites="chen2025 welz2023 yang2024">(<a href="references.html#ref-chen2025" role="doc-biblioref">Chen &amp; Pustejovsky, 2025</a>; <a href="references.html#ref-welz2023" role="doc-biblioref">Welz et al., 2023</a>; <a href="references.html#ref-yang2024" role="doc-biblioref">Yang et al., 2024</a>)</span> inherit the same sandwich without overturning it, and Pustejovsky <span class="citation" data-cites="pustejovsky2025">(<a href="references.html#ref-pustejovsky2025" role="doc-biblioref">2025</a>)</span> names the same lineage as the “well-developed and readily available” robustness strand for dependent effects. From the other direction, the practitioner tutorials <span class="citation" data-cites="tannersmith2014 tannersmith2016">(<a href="references.html#ref-tannersmith2016" role="doc-biblioref">Tanner-Smith et al., 2016</a>; <a href="references.html#ref-tannersmith2014" role="doc-biblioref">Tanner-Smith &amp; Tipton, 2014</a>)</span> and applied syntheses <span class="citation" data-cites="gnambs2023 cameron2015">(<a href="references.html#ref-cameron2015" role="doc-biblioref">Cameron &amp; Miller, 2015</a>; <a href="references.html#ref-gnambs2023" role="doc-biblioref">Gnambs &amp; Schroeders, 2023</a>)</span> document cross-disciplinary adoption across education, psychology, health, and the microeconometric clustering literature from which the cluster-sandwich also descends, and the canonical software lineage <span class="citation" data-cites="joshi2022 fernandezcastilla2026 williams2025a">(<a href="references.html#ref-fernandezcastilla2026" role="doc-biblioref">Fernández-Castilla et al., 2026</a>; <a href="references.html#ref-joshi2022" role="doc-biblioref">Joshi et al., 2022</a>; <a href="references.html#ref-williams2025a" role="doc-biblioref">Williams et al., 2025</a>)</span> carries it into routine use.</p>
+<p>The field-default claim is made honestly, with its adoption qualifier intact and stated as a precondition rather than a concession. Tipton, Pustejovsky and Ahmadi <span class="citation" data-cites="tipton2019">(<a href="references.html#ref-tipton2019" role="doc-biblioref">2019</a>)</span> record that RVE was endorsed in principle among the consensus-recommended modeling alternatives for dependent effects, yet appeared in only about five percent of syntheses as of 2016. “Field-default” therefore denotes methodological consensus and emerging adoption (the standard the field recognizes as correct for dependent effects, the one the methods literature converged on and the tutorials teach) rather than universal practitioner uptake. The qualifier sharpens the lineage claim rather than weakening it. The review measures a Bayesian analogue against the <em>estimand</em> this lineage fixed, an object whose authority rests on the lineage’s structural coherence, not on a head-count of applied syntheses.</p>
+</section>
+<section id="sec-what-targets" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-what-targets"><span class="header-section-number">2.2</span> 2.2 What the sandwich targets</h2>
+<p>The lineage having fixed <em>which</em> apparatus is standard, the next link fixes <em>what</em> that apparatus targets. The RVE sandwich targets the marginal covariance of the effect-size vector through a working model — aggregated or correlated-effects — that may misspecify the within-study correlation, and is asymptotically consistent in <em>m</em>, the number of studies, without requiring the true within-study correlation to be known <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-02">CL-P1-02</a>, CONDITIONAL; G-03, G-15)</span>. Pustejovsky and Chen <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">2024</a>)</span> state the property directly: the sandwich does not rely on the assumed dependence structure being correctly specified, and it requires a large number of independent clusters. The covariance the sandwich estimates is the <em>marginal</em> covariance — the object that survives integrating over whatever within-study correlation the working model posits — and naming it as marginal is a standing discipline of this book. Two preconditions on that consistency are load-bearing and must be kept distinct.</p>
+<p>The consistency runs in <em>m</em> (studies), not in <em>k</em> (effect sizes). The estimand is a marginal covariance estimated from cluster-level residual cross-products, and the origin result is explicitly contingent on regularity conditions that bite only as the number of independent studies grows <span class="citation" data-cites="hedges2010 pustejovsky2022">(<a href="references.html#ref-hedges2010" role="doc-biblioref">Hedges et al., 2010</a>; <a href="references.html#ref-pustejovsky2022" role="doc-biblioref">Pustejovsky &amp; Tipton, 2022</a>)</span>. A synthesis with twelve studies reporting ten effects each has <em>k</em> = 120 rows in its data frame but <em>m</em> = 12 independent clusters; it is the twelve that the asymptotics count. The cross-domain analogues confirm the same direction under the clusters↔︎studies mapping: econometric clustering theory makes consistency contingent on the number of clusters diverging, not the number of observations <span class="citation" data-cites="cameron2015">(<a href="references.html#ref-cameron2015" role="doc-biblioref">Cameron &amp; Miller, 2015</a>)</span>, and the survey design-based sandwich is consistent in the survey central-limit sense, in the number of sampled units <span class="citation" data-cites="binder1983">(<a href="references.html#ref-binder1983" role="doc-biblioref">Binder, 1983</a>)</span>, with clusters and strata playing the role of studies, never effect sizes. Eliding <em>m</em> into <em>k</em> would misstate the asymptotic regime, and it is precisely the regime where the small-<em>m</em> discipline of §2.4 becomes binding (G-15).</p>
+<p>What Pustejovsky and Chen establish about the two working-model likelihoods is a proportionality, not an identity. Their Theorem 2 shows the aggregated and correlated-effects likelihoods are <em>proportional — equal up to a parameter-free constant κ</em>, and not identical (G-03). The distinction is load-bearing for the entire book: proportionality up to a constant suffices for the maximizing arguments and the sandwich target to agree, which is what licenses moving between the two representations, but it is strictly weaker than a likelihood identity. Exact identity is a separate, stronger statement reserved downstream for this review’s own unit-weight-boundary result; it must never be read back into the field’s proportionality theorem. The cross-domain analogues confirm the weaker, correct reading: econometric clustering <span class="citation" data-cites="cameron2015">(<a href="references.html#ref-cameron2015" role="doc-biblioref">Cameron &amp; Miller, 2015</a>)</span> and survey design-based estimation <span class="citation" data-cites="binder1983">(<a href="references.html#ref-binder1983" role="doc-biblioref">Binder, 1983</a>)</span> each affirm consistency in the number of clusters, and neither asserts a likelihood identity. What the sandwich targets, then, is a single marginal covariance, reached through either of two proportionally related working models, consistent as studies accumulate.</p>
+</section>
+<section id="sec-why-robust" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-why-robust"><span class="header-section-number">2.3</span> 2.3 Why the sandwich is robust</h2>
+<p>Why the marginal sandwich is robust is the link that explains why the lineage’s target is worth calibrating to at all. The sandwich estimator remains consistent under essentially arbitrary misspecification of the within-study correlation structure (which is almost never known in meta-analytic practice), provided the working model’s marginal moments are calibrated to the data-generating process <span class="citation" data-cites="hong2018 cameron2015 pustejovsky2022">(<a href="references.html#ref-cameron2015" role="doc-biblioref">Cameron &amp; Miller, 2015</a>; <a href="references.html#ref-hong2018" role="doc-biblioref">Hong et al., 2018</a>; <a href="references.html#ref-pustejovsky2022" role="doc-biblioref">Pustejovsky &amp; Tipton, 2022</a>)</span> <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-03">CL-P1-03</a>, CONDITIONAL; G-25)</span>. This is the sandwich’s central virtue: its validity does not turn on getting the dependence structure right, only on the marginal moments being approximately correct. <span class="citation" data-cites="hong2018">Hong et al. (<a href="references.html#ref-hong2018" role="doc-biblioref">2018</a>)</span> states the rationale plainly: the estimator is asymptotically correct even when the working likelihood is incorrect, and the consolidating lineage <span class="citation" data-cites="pustejovsky2022">(<a href="references.html#ref-pustejovsky2022" role="doc-biblioref">Pustejovsky &amp; Tipton, 2022</a>)</span> carries it as an asymptotic-in-<em>m</em> property of the field. The robustness is asymptotic and conditional on calibrated marginal moments; it is not unconditional, and the prose states the condition with the claim.</p>
+<p>The deeper rationale is supplied by the estimating-equation and Godambe-information machinery, of which the design-based sandwich of <span class="citation" data-cites="binder1983">Binder (<a href="references.html#ref-binder1983" role="doc-biblioref">1983</a>)</span> is the survey-side origin. That substrate gives the asymptotic justification for why covariance recalibration under working-model misspecification is <em>principled</em> rather than ad hoc: when an estimator solves an estimating equation whose score is correct in expectation, its sampling covariance takes the Godambe sandwich form regardless of whether the full working likelihood is correct, given correctly specified low-order margins. This is the precise sense in which the substrate <em>motivates the need</em> for a correction — it establishes that a marginal covariance target is well-defined and that realigning toward it is licensed by estimating-equation theory — without itself <em>supplying</em> a finite-sample correction (G-25). The literature carries it as motivation, never as proof that a finite-sample correction already exists <span class="citation" data-cites="joshi2022">(<a href="references.html#ref-joshi2022" role="doc-biblioref">Joshi et al., 2022</a>)</span>. This misspecification-robustness, asymptotic, conditional, and principled, is what makes the marginal sandwich covariance an attractive calibration target for a Bayesian analogue: it is the covariance an estimating-equation argument says inference <em>should</em> report under misspecification. It is cited here as why-recalibration-is-needed framing, the hinge the calibrated-Bayes pillar (P3) later inherits, not as evidence the correction has already been built.</p>
+</section>
+<section id="sec-small-m" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-small-m"><span class="header-section-number">2.4</span> 2.4 The small-<em>m</em> discipline</h2>
+<p>The robustness of §2.3 is asymptotic, and the asymptotics bite slowly, which is why the lineage’s most consequential refinement was the small-sample discipline. In small-<em>m</em> meta-analysis, especially <em>m</em> below eight, RVE inflates Type I error unless a named small-sample correction is applied: HTZ, AHZ, CWB, or CR2 (Bell–McCaffrey; <span class="citation" data-cites="imbens2016">Imbens &amp; Kolesár (<a href="references.html#ref-imbens2016" role="doc-biblioref">2016</a>)</span>); uncorrected RVE does not control Type I error when studies are few <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-04">CL-P1-04</a>, EMPIRICAL; G-15)</span>. This is the chapter’s spine guard, and it is stated qualitatively by discipline: uncorrected small-<em>m</em> RVE <em>over-rejects</em>, and level control <em>recovers only after a named correction</em>. No bare coverage percentage is asserted, and no sentence claims small-<em>m</em> adequacy without naming the specific adjustment that delivers it.</p>
+<p><span class="citation" data-cites="tipton2015a">Tipton (<a href="references.html#ref-tipton2015a" role="doc-biblioref">2015</a>)</span> is the primary named source. Tipton showed by simulation that uncorrected robust inference over-rejects badly in small-<em>m</em> meta-regression and that level control recovers only via the bias-reduced residual corrections together with Satterthwaite degrees of freedom — the named HTZ-type adjustment. Each subsequent link in the lineage named its own correction, again <em>extending</em> the discipline rather than replacing it. <span class="citation" data-cites="tipton2015b">Tipton &amp; Pustejovsky (<a href="references.html#ref-tipton2015b" role="doc-biblioref">2015</a>)</span> extended it to multiple-contrast tests with the AHZ correction, showing uncorrected multiple-contrast RVE liberal even at large <em>m</em>. <span class="citation" data-cites="joshi2022">Joshi et al. (<a href="references.html#ref-joshi2022" role="doc-biblioref">2022</a>)</span> carried the cluster wild bootstrap (CWB) as a named small-<em>m</em> alternative, directly stating that small-<em>m</em> RVE inflates Type I error and is controlled only through a named correction. <span class="citation" data-cites="yang2024">Yang et al. (<a href="references.html#ref-yang2024" role="doc-biblioref">2024</a>)</span> confirmed that the bare cluster-robust estimator is downwardly biased and fails Type I control unless the number of independent studies is large or a named correction is applied. Beneath this meta-analytic lineage sits its methodological origin: <span class="citation" data-cites="bell2002">Bell &amp; McCaffrey (<a href="references.html#ref-bell2002" role="doc-biblioref">2002</a>)</span> derived the bias-reduced linearization later named CR2 and showed by simulation that uncorrected small-sample linearization inflates Type I error, and <span class="citation" data-cites="pustejovsky2018">Pustejovsky &amp; Tipton (<a href="references.html#ref-pustejovsky2018" role="doc-biblioref">2018</a>)</span> implemented CR2 with Satterthwaite/AHT degrees of freedom and documented the over-rejection of the uncorrected Wald test.</p>
+<p>The same discipline is corroborated, in its own idiom, by adjacent settings, and the boundary between the four endorsed corrections and these analogues is held explicit. The econometric clustering literature from which the cluster-sandwich descends finds that few-cluster Wald tests over-reject unless a named correction — the cluster jackknife CV3 with a <em>t</em>(G−1) reference <span class="citation" data-cites="mackinnon2023a mackinnon2025">(<a href="references.html#ref-mackinnon2023a" role="doc-biblioref">MacKinnon et al., 2023</a>, <a href="references.html#ref-mackinnon2025" role="doc-biblioref">2025</a>)</span> or the Bell–McCaffrey degrees-of-freedom adjustment <span class="citation" data-cites="cameron2015">(<a href="references.html#ref-cameron2015" role="doc-biblioref">Cameron &amp; Miller, 2015</a>)</span> — is applied; small-<em>k</em> scalar-summary intervals undercover unless an adjusted reference distribution is used <span class="citation" data-cites="zejnullahi2024">(<a href="references.html#ref-zejnullahi2024" role="doc-biblioref">Zejnullahi &amp; Hedges, 2024</a>)</span>; the general-meta-analytic precursor literature on liberal small-sample tests names its own remedy, the Hartung <em>q</em>-variance estimator with a <em>t</em> reference <span class="citation" data-cites="hartung2001">(<a href="references.html#ref-hartung2001" role="doc-biblioref">Hartung &amp; Knapp, 2001</a>)</span>; and the multilevel literature warns that ignoring the within-study sampling covariance underestimates standard errors and inflates Type I error <span class="citation" data-cites="vandennoortgate2015">(<a href="references.html#ref-vandennoortgate2015" role="doc-biblioref">Van Den Noortgate et al., 2015</a>)</span>. These cross-domain corrections are corroboration that the small-sample failure and its named remedies are general; the CV3 jackknife and the <em>t</em>(G−1) reference in particular are kept clearly labeled as econometric analogues, not as one of the four meta-analytic corrections the review endorses under G-15. What a working meta-analyst must take from this section is a rule, not a number: in the small-<em>m</em> regime, RVE adequacy is a claim about RVE-plus-a-named-correction, never about bare RVE. An adequacy claim that does not name its correction is not a claim the test supports.</p>
+</section>
+<section id="sec-cr2-comparator" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="sec-cr2-comparator"><span class="header-section-number">2.5</span> 2.5 CR2 is a comparator, not the target</h2>
+<p>Among the named corrections, CR2 warrants particular care, because it is the comparator most easily mistaken for a universal fix. The CR2 correction (Bell–McCaffrey; <span class="citation" data-cites="imbens2016">Imbens &amp; Kolesár (<a href="references.html#ref-imbens2016" role="doc-biblioref">2016</a>)</span>) improves coverage on balanced designs but degrades under severe imbalance or skewed regressors, and its compound-symmetric and constant-subgroup-size conditions are not always met <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-05">CL-P1-05</a>, CONDITIONAL; G-04, G-14)</span>. Even at its canonical development the correction is not universal: <span class="citation" data-cites="imbens2016">Imbens &amp; Kolesár (<a href="references.html#ref-imbens2016" role="doc-biblioref">2016</a>)</span> show that Bell–McCaffrey is nearly inert on balanced designs, helps most under skew or imbalance, yet itself undercovers under skewed <em>errors</em> at one extreme and is conservative at the other. The underlying bias-reduced linearization is <em>exactly</em> unbiased only under independent and identically distributed errors <span class="citation" data-cites="bell2002">(<a href="references.html#ref-bell2002" role="doc-biblioref">Bell &amp; McCaffrey, 2002</a>)</span>, so the equality it promises is a design-specific property, not a guarantee that holds across designs.</p>
+<p>The conditions under which CR2 achieves its equivalence are pinned by the lineage’s capstone. Pustejovsky and Chen <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">2024</a>, Theorem 3)</span> establish that the CR2-type equivalence holds <em>only</em> under compound-symmetric within-subgroup blocks <em>and</em> constant subgroup size — conditions the paper characterizes as more restrictive and artificial, and which fail in Pustejovsky and Chen’s own worked examples (G-04). Where those conditions break, so does the equality. The degradation is documented across designs: coverage falls materially below nominal in small-<em>k</em> multivariate meta-regression <span class="citation" data-cites="welz2023">(<a href="references.html#ref-welz2023" role="doc-biblioref">Welz et al., 2023</a>)</span>, and most starkly in crossed phylogenetic designs, where CR2 is inapplicable and cluster-robust inference falls below nominal regardless <span class="citation" data-cites="williams2025a">(<a href="references.html#ref-williams2025a" role="doc-biblioref">Williams et al., 2025</a>)</span>. Because CR2’s accuracy is contingent on design balance, it cannot serve as ground truth; the prose never describes it as universal, as covering all designs, or as eliminating Type I error (G-14). CR2 is therefore a design-specific tuning and an external comparator — useful where its design conditions hold, degraded where they do not — never a universal fix and never the calibration target. This is the distinction the chapter carries forward: the object a Bayesian analogue must match is the marginal RVE/CHE sandwich covariance <em>itself</em>, not CR2 treated as ground truth. CR2 is one design-aware way the frequentist lineage approximates that covariance in finite samples; it is not the covariance.</p>
+</section>
+<section id="sec-design-class" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="sec-design-class"><span class="header-section-number">2.6</span> 2.6 The design-class distinction</h2>
+<p>The lineage also fixes <em>which working model survives</em> when the data structure is most demanding, a distinction this review later inherits as the warrant for observation-level Bayesian structure. Dependent effects are handled by either the aggregated (one-row-per-study) or the correlated-effects (observation-level) working model; when moderators vary within study, the aggregated representation ceases to exist, whereas the correlated-effects model remains well-defined with the sandwich applied at the observation level <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">Pustejovsky &amp; Chen, 2024</a>)</span> <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-06">CL-P1-06</a>, CONDITIONAL; G-05)</span>. The mechanism is plain: the aggregated one-row-per-study representation requires study-level predictors, so when a moderator takes different values across the effect sizes <em>within</em> the same study, there is no single study-level row that can represent it, and the aggregated representation ceases to correspond to any model. The correlated-effects model, working at the level of the individual effect size, retains the full within-study design matrix and simply keeps the rows.</p>
+<p>The direction of this result is locked (G-05): it is <em>aggregation</em> that breaks, and the correlated-effects model that survives, never the reverse. Inverting it (claiming the correlated-effects model fails) would misstate the entire design-class result and quietly undercut the observation-level structure this review carries into its Bayesian analogue. The “ceases to exist” result itself is sourced uniquely to Pustejovsky and Chen <span class="citation" data-cites="pustejovsky2024">(<a href="references.html#ref-pustejovsky2024" role="doc-biblioref">2024</a>)</span>, the capstone of the lineage; the earlier links and the parallel literatures furnish the two representations and corroborate the direction without asserting the analytic result themselves. <span class="citation" data-cites="hedges2010">Hedges et al. (<a href="references.html#ref-hedges2010" role="doc-biblioref">2010</a>)</span> supplies both the correlated/observation-level working model and the synthetic aggregated alternative but does not state the direction, which is Pustejovsky and Chen’s contribution; and the multilevel route reaches the same design-class distinction from the hierarchical side, with <span class="citation" data-cites="vandennoortgate2015">Van Den Noortgate et al. (<a href="references.html#ref-vandennoortgate2015" role="doc-biblioref">2015</a>)</span> showing that aggregating effect sizes loses information and can make moderator estimation impossible while the observation-level model survives, the same direction, never inverted. For a practitioner with within-study moderator variation, the operational consequence is direct: the observation-level correlated-effects model is not merely the more flexible choice but the <em>only</em> well-defined one. This survival of observation-level structure is the analytic warrant for the Bayesian observation-level model this review carries into P4: a Bayesian analogue that operates at the observation level is calibrating to a target that remains well-defined precisely where the aggregated alternative cannot.</p>
+</section>
+<section id="sec-df-tooling" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="sec-df-tooling"><span class="header-section-number">2.7</span> 2.7 Satterthwaite df tuning and canonical tooling</h2>
+<p>Operating the sandwich in finite samples requires a reference distribution, and the lineage’s routine device for setting it is the last refinement to trace, together with the software that instantiates the whole apparatus. The Satterthwaite degrees-of-freedom approximation is routinely applied in frequentist RVE meta-regression to set the effective degrees of freedom for tests and confidence intervals; it is asymptotically justified but biased under severe imbalance or small <em>m</em>, becoming unreliable once the effective degrees of freedom fall below roughly four <span class="citation" data-cites="tipton2015a pustejovsky2018">(<a href="references.html#ref-pustejovsky2018" role="doc-biblioref">Pustejovsky &amp; Tipton, 2018</a>; <a href="references.html#ref-tipton2015a" role="doc-biblioref">Tipton, 2015</a>)</span> <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-07">CL-P1-07</a>, CONDITIONAL; G-15)</span>. Here too the chronology is one of refinement: the origin paper <span class="citation" data-cites="hedges2010">(<a href="references.html#ref-hedges2010" role="doc-biblioref">Hedges et al., 2010</a>)</span> supplied only the crude <em>m</em> − <em>p</em> correction; the coefficient-by-coefficient Satterthwaite approximation, and the finding that the effective df are covariate-dependent and often far below <em>m</em> − 1, are established by <span class="citation" data-cites="tipton2015a">Tipton (<a href="references.html#ref-tipton2015a" role="doc-biblioref">2015</a>)</span> and <span class="citation" data-cites="pustejovsky2018">Pustejovsky &amp; Tipton (<a href="references.html#ref-pustejovsky2018" role="doc-biblioref">2018</a>)</span>, with <span class="citation" data-cites="joshi2022">Joshi et al. (<a href="references.html#ref-joshi2022" role="doc-biblioref">2022</a>)</span> corroborating both the routine use and the small-<em>m</em> below-nominal behavior. The practical rule that falls out, familiar from any <code>clubSandwich</code> or <code>robumeta</code> warning, is to distrust a test whose effective df drop below about four, because the Satterthwaite reference is no longer reliable there. This df-below-four fragility is exactly the kind of finite-sample imperfection in the field-default tooling whose own limits under small <em>m</em> and imbalance are part of the standing small-sample discipline (G-15), and it ties directly back to §2.4.</p>
+<p>That entire apparatus — sandwich, named corrections, Satterthwaite df — is, finally, instantiated in canonical software, which is what carries the standard from the methods literature into a practitioner’s analysis <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p1-08">CL-P1-08</a>, POSITIONING)</span>. The <code>clubSandwich</code> package (Pustejovsky and Tipton) and <code>robumeta</code> (Fisher and Tipton) are the canonical implementations of frequentist RVE with small-sample corrections (CR2, HTZ/AHZ, and Satterthwaite degrees of freedom) and the field-standard tooling for dependent-effect meta-analysis <span class="citation" data-cites="pustejovsky2018 joshi2022 tannersmith2016 welz2023">(<a href="references.html#ref-joshi2022" role="doc-biblioref">Joshi et al., 2022</a>; <a href="references.html#ref-pustejovsky2018" role="doc-biblioref">Pustejovsky &amp; Tipton, 2018</a>; <a href="references.html#ref-tannersmith2016" role="doc-biblioref">Tanner-Smith et al., 2016</a>; <a href="references.html#ref-welz2023" role="doc-biblioref">Welz et al., 2023</a>)</span>. Pustejovsky and Tipton <span class="citation" data-cites="pustejovsky2018">(<a href="references.html#ref-pustejovsky2018" role="doc-biblioref">2018</a>)</span> are the methods source that introduces and implements CR2 with AHT degrees of freedom in <code>clubSandwich</code>; Joshi and colleagues <span class="citation" data-cites="joshi2022">(<a href="references.html#ref-joshi2022" role="doc-biblioref">2022</a>)</span> and Tanner-Smith and Tipton <span class="citation" data-cites="tannersmith2016">(<a href="references.html#ref-tannersmith2016" role="doc-biblioref">2016</a>)</span> name and use both <code>clubSandwich</code> and <code>robumeta</code> as the standard implementations actually deployed; <span class="citation" data-cites="welz2023">Welz et al. (<a href="references.html#ref-welz2023" role="doc-biblioref">2023</a>)</span> names <code>clubSandwich</code> as the canonical software for cluster-robust estimation with small-sample corrections; and the field-tooling record <span class="citation" data-cites="tipton2019 fernandezcastilla2026">(<a href="references.html#ref-fernandezcastilla2026" role="doc-biblioref">Fernández-Castilla et al., 2026</a>; <a href="references.html#ref-tipton2019" role="doc-biblioref">Tipton et al., 2019</a>)</span>, with Pustejovsky and Tipton <span class="citation" data-cites="pustejovsky2022">(<a href="references.html#ref-pustejovsky2022" role="doc-biblioref">2022</a>)</span>, situates them in the broader practitioner ecosystem. The lineage thus closes the loop a practitioner cares about: a fixed estimand, a disciplined small-sample regime with named corrections, a monitored reference distribution, and shipped software that does all three from a single deployable toolchain.</p>
+<p>Taken together, CL-P1-01 through CL-P1-08 establish a complete, instantiated, software-backed standard, and they fix a single object: a marginal cluster-sandwich, consistent in <em>m</em> under working-model misspecification, robust under calibrated marginal moments, proportional-not-identical across its two working-model representations, requiring a named small-sample correction at low <em>m</em>, with CR2 as a design-specific comparator rather than the target, the aggregated representation that breaks where the correlated-effects model survives, the Satterthwaite tuning with its df-below-four fragility, and <code>clubSandwich</code> and <code>robumeta</code> as canonical tooling. This is the owned frequentist standard — one apparatus matured into a field-default through the lineage from Hedges, Tipton and Johnson to Pustejovsky and Chen. The marginal RVE/CHE sandwich covariance it targets is precisely the covariance target a Bayesian analogue would have to match, which is the question P2 takes up: across a broad survey of Bayesian meta-analysis, is there any published method that adopts this sandwich covariance as an explicit calibration target?</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-bell2002" class="csl-entry" role="listitem">
+Bell, R. M., &amp; McCaffrey, D. F. (2002). Bias reduction in standard errors for linear regression with multi-stage samples. <em>Survey Methodology</em>.
+</div>
+<div id="ref-binder1983" class="csl-entry" role="listitem">
+Binder, D. A. (1983). On the variances of asymptotically normal estimators from complex surveys. <em>International Statistical Review</em>. <a href="https://doi.org/10.2307/1402588">https://doi.org/10.2307/1402588</a>
+</div>
+<div id="ref-cameron2015" class="csl-entry" role="listitem">
+Cameron, A. C., &amp; Miller, D. L. (2015). A practitioner’s guide to cluster-robust inference. <em>Journal of Human Resources</em>. <a href="https://doi.org/10.3368/jhr.50.2.317">https://doi.org/10.3368/jhr.50.2.317</a>
+</div>
+<div id="ref-chen2025" class="csl-entry" role="listitem">
+Chen, M., &amp; Pustejovsky, J. E. (2025). Adapting methods for correcting selective reporting bias in meta-analysis of dependent effect sizes. <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000773">https://doi.org/10.1037/met0000773</a>
+</div>
+<div id="ref-fernandezcastilla2026" class="csl-entry" role="listitem">
+Fernández-Castilla, B., López-López, J. A., &amp; Rubio-Aparicio, M. (2026). Meta-regression with categorical moderators and dependent effect sizes: <span>A</span> simulation study. <em>Research Synthesis Methods</em>, 1–27. <a href="https://doi.org/10.1017/rsm.2026.10092">https://doi.org/10.1017/rsm.2026.10092</a>
+</div>
+<div id="ref-gnambs2023" class="csl-entry" role="listitem">
+Gnambs, T., &amp; Schroeders, U. (2023). Accuracy and precision of fixed and random effects in meta-analyses of randomized control trials for continuous outcomes. <em>Research Synthesis Methods</em>, <em>15</em>(1), 86–106. <a href="https://doi.org/10.1002/jrsm.1673">https://doi.org/10.1002/jrsm.1673</a>
+</div>
+<div id="ref-hartung2001" class="csl-entry" role="listitem">
+Hartung, J., &amp; Knapp, G. (2001). On tests of the overall treatment effect in meta-analysis with normally distributed responses. <em>Statistics in Medicine</em>. <a href="https://doi.org/10.1002/sim.791">https://doi.org/10.1002/sim.791</a>
+</div>
+<div id="ref-hedges2010" class="csl-entry" role="listitem">
+Hedges, L. V., Tipton, E., &amp; Johnson, M. C. (2010). Robust variance estimation in meta-regression with dependent effect size estimates. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.5">https://doi.org/10.1002/jrsm.5</a>
+</div>
+<div id="ref-hong2018" class="csl-entry" role="listitem">
+Hong, C., D. Riley, R., &amp; Chen, Y. (2018). An improved method for bivariate meta-analysis when within-study correlations are unknown. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1274">https://doi.org/10.1002/jrsm.1274</a>
+</div>
+<div id="ref-imbens2016" class="csl-entry" role="listitem">
+Imbens, G. W., &amp; Kolesár, M. (2016). Robust standard errors in small samples: Some practical advice. <em>Review of Economics and Statistics</em>. <a href="https://doi.org/10.1162/REST_a_00552">https://doi.org/10.1162/REST_a_00552</a>
+</div>
+<div id="ref-joshi2022" class="csl-entry" role="listitem">
+Joshi, M., Pustejovsky, J. E., &amp; Beretvas, S. N. (2022). Cluster wild bootstrapping to handle dependent effect sizes in meta-analysis with a small number of studies. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1554">https://doi.org/10.1002/jrsm.1554</a>
+</div>
+<div id="ref-mackinnon2023a" class="csl-entry" role="listitem">
+MacKinnon, J. G., Nielsen, M. Ø., &amp; Webb, M. D. (2023). Fast and reliable jackknife and bootstrap methods for cluster-robust inference. <em>Journal of Applied Econometrics</em>, <em>38</em>(5), 671–694. <a href="https://doi.org/10.1002/jae.2969">https://doi.org/10.1002/jae.2969</a>
+</div>
+<div id="ref-mackinnon2025" class="csl-entry" role="listitem">
+MacKinnon, J. G., Nielsen, M. Ø., &amp; Webb, M. D. (2025). Cluster-robust jackknife and bootstrap inference for logistic regression models. <em>Econometric Reviews</em>, <em>0</em>(0), 1–29. <a href="https://doi.org/10.1080/07474938.2025.2515161">https://doi.org/10.1080/07474938.2025.2515161</a>
+</div>
+<div id="ref-pustejovsky2024" class="csl-entry" role="listitem">
+Pustejovsky, J. E., &amp; Chen, M. (2024). Equivalencies between ad hoc strategies and multivariate models for meta-analysis of dependent effect sizes. <em>Journal of Educational and Behavioral Statistics</em>. <a href="https://doi.org/10.3102/10769986241232524">https://doi.org/10.3102/10769986241232524</a>
+</div>
+<div id="ref-pustejovsky2018" class="csl-entry" role="listitem">
+Pustejovsky, J. E., &amp; Tipton, E. (2018). Small-sample methods for cluster-robust variance estimation and hypothesis testing in fixed effects models. <em>Journal of Business &amp; Economic Statistics</em>. <a href="https://doi.org/10.1080/07350015.2016.1247004">https://doi.org/10.1080/07350015.2016.1247004</a>
+</div>
+<div id="ref-pustejovsky2022" class="csl-entry" role="listitem">
+Pustejovsky, J. E., &amp; Tipton, E. (2022). Meta-analysis with robust variance estimation: Expanding the range of working models. <em>Prevention Science</em>. <a href="https://doi.org/10.1007/s11121-021-01246-3">https://doi.org/10.1007/s11121-021-01246-3</a>
+</div>
+<div id="ref-pustejovsky2025" class="csl-entry" role="listitem">
+Pustejovsky, J. E., Zhang, J., &amp; Tipton, E. (2025). A preliminary data analysis workflow for meta-analysis of dependent effect sizes. <em>Philosophical Transactions of the Royal Society A</em>. <a href="https://doi.org/10.31222/osf.io/vfsqx_v2">https://doi.org/10.31222/osf.io/vfsqx_v2</a>
+</div>
+<div id="ref-tannersmith2014" class="csl-entry" role="listitem">
+Tanner-Smith, E. E., &amp; Tipton, E. (2014). Robust variance estimation with dependent effect sizes: Practical considerations including a software tutorial in stata and spss. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1091">https://doi.org/10.1002/jrsm.1091</a>
+</div>
+<div id="ref-tannersmith2016" class="csl-entry" role="listitem">
+Tanner-Smith, E. E., Tipton, E., &amp; Polanin, J. R. (2016). Handling complex meta-analytic data structures using robust variance estimates: A tutorial in r. <em>Journal of Developmental and Life-Course Criminology</em>. <a href="https://doi.org/10.1007/s40865-016-0026-5">https://doi.org/10.1007/s40865-016-0026-5</a>
+</div>
+<div id="ref-tipton2015a" class="csl-entry" role="listitem">
+Tipton, E. (2015). Small sample adjustments for robust variance estimation with meta-regression. <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/met0000011">https://doi.org/10.1037/met0000011</a>
+</div>
+<div id="ref-tipton2015b" class="csl-entry" role="listitem">
+Tipton, E., &amp; Pustejovsky, J. E. (2015). Small-sample adjustments for tests of moderators and model fit using robust variance estimation in meta-regression. <em>Journal of Educational and Behavioral Statistics</em>. <a href="https://doi.org/10.3102/1076998615606099">https://doi.org/10.3102/1076998615606099</a>
+</div>
+<div id="ref-tipton2019" class="csl-entry" role="listitem">
+Tipton, E., Pustejovsky, J. E., &amp; Ahmadi, H. (2019). Current practices in meta-regression in psychology, education, and medicine. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1339">https://doi.org/10.1002/jrsm.1339</a>
+</div>
+<div id="ref-vandennoortgate2015" class="csl-entry" role="listitem">
+Van Den Noortgate, W., López-López, J. A., Marín-Martínez, F., &amp; Sánchez-Meca, J. (2015). Meta-analysis of multiple outcomes: A multilevel approach. <em>Behavior Research Methods</em>. <a href="https://doi.org/10.3758/s13428-014-0527-2">https://doi.org/10.3758/s13428-014-0527-2</a>
+</div>
+<div id="ref-welz2023" class="csl-entry" role="listitem">
+Welz, T., Viechtbauer, W., &amp; Pauly, M. (2023). Cluster-robust estimators for multivariate mixed-effects meta-regression. <em>Computational Statistics &amp; Data Analysis</em>, <em>179</em>, 107631. <a href="https://doi.org/10.1016/j.csda.2022.107631">https://doi.org/10.1016/j.csda.2022.107631</a>
+</div>
+<div id="ref-williams2025a" class="csl-entry" role="listitem">
+Williams, C., Yang, Y., Warton, D. I., &amp; Nakagawa, S. (2025). Modelling approaches for meta-analyses with dependent effect sizes in ecology and evolution: A simulation study. <em>Methods in Ecology and Evolution</em>. <a href="https://doi.org/10.1111/2041-210X.70156">https://doi.org/10.1111/2041-210X.70156</a>
+</div>
+<div id="ref-yang2024" class="csl-entry" role="listitem">
+Yang, Y., Lagisz, M., Williams, C., Noble, D. W. A., Pan, J., &amp; Nakagawa, S. (2024). Robust point and variance estimation for meta-analyses with selective reporting and dependent effect sizes. <em>Methods in Ecology and Evolution</em>. <a href="https://doi.org/10.1111/2041-210x.14377">https://doi.org/10.1111/2041-210x.14377</a>
+</div>
+<div id="ref-zejnullahi2024" class="csl-entry" role="listitem">
+Zejnullahi, R., &amp; Hedges, L. V. (2024). Robust variance estimation in small meta-analysis with the standardized mean difference. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1668">https://doi.org/10.1002/jrsm.1668</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-introduction.html" class="pagination-link" aria-label="Introduction &amp; the inferential mismatch">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction &amp; the inferential mismatch</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-bayesian-gap.html" class="pagination-link" aria-label="Bayesian meta-analysis &amp; the missing analogue">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

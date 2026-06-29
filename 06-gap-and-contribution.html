@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; The gap, the contribution &amp; claim-type discipline – A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./07-boundaries.html" rel="next">
+<link href="./05-why-bayesian-rve.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-gap-and-contribution.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction &amp; the inferential mismatch</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-rve-lineage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bayesian-gap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-calibrated-bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The calibrated-Bayes lens</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-why-bayesian-rve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Why Bayesian RVE specifically</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-gap-and-contribution.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-boundaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./98-appendix-claim-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix — Claim index (CL-IDs)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-appendix-database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Literature database &amp; pillar × theme map</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-claim-type-key" id="toc-sec-claim-type-key" class="nav-link active" data-scroll-target="#sec-claim-type-key"><span class="header-section-number">6.1</span> 6.1 Claim-type discipline as a reading key</a></li>
+  <li><a href="#sec-two-conjunctions" id="toc-sec-two-conjunctions" class="nav-link" data-scroll-target="#sec-two-conjunctions"><span class="header-section-number">6.2</span> 6.2 The two unoccupied conjunctions restated</a></li>
+  <li><a href="#sec-ccc-fills-gap" id="toc-sec-ccc-fills-gap" class="nav-link" data-scroll-target="#sec-ccc-fills-gap"><span class="header-section-number">6.3</span> 6.3 CCC fills the gap: exact matching, coverage held separate</a></li>
+  <li><a href="#sec-owned-borrowed-deferred" id="toc-sec-owned-borrowed-deferred" class="nav-link" data-scroll-target="#sec-owned-borrowed-deferred"><span class="header-section-number">6.4</span> 6.4 The claim-type discipline applied: owned vs borrowed vs deferred</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-gap-and-contribution" class="quarto-section-identifier"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Guardrails binding this chapter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is the join chapter, and it introduces <strong>no new negative claim</strong>. It convenes four pillars already established at full search-breadth and reads off their convergence: the frequentist lineage fixed the target (P1), the Bayesian literature left it unoccupied (P2), calibrated-Bayes licensed the import (P3), and Cholesky Calibration Correction (CCC) delivers the join (P4). The governing discipline here is <strong>claim-type discipline</strong> — the reading key by which a reviewer can stand on any sentence in this book and know what evidence stands behind it and who owns the claim. The two verbatim gap sentences are recalled here as twin anchors; they are <strong>reprises</strong>, never re-assertions, and the guardrails below state how each is held. The object at issue is named each time it appears: the marginal CR2/RVE sandwich covariance for the fixed-effect block.</p>
+<ul>
+<li><strong>G-23 / G-27 (both locked gap sentences are RECALLED, never re-asserted as new).</strong> The two verbatim gap sentences below — the CL-P2-02 sentence and the CL-P4-06 sentence — are <strong>restated at §6.2 as reprises</strong> of the documented searches hosted at §3.5 (Chapter 3) and §5.6 (Chapter 5). Their strength is the breadth of those <strong>earlier</strong> searches; this chapter re-derives nothing, asserts no fresh gap, and tags each restatement <strong>REPRISE</strong>, never GAP-ASSERTION. Neither is ever escalated to “no such method exists” or “the problem has never been formalized,” and neither claims priority over any single ingredient; each remains the <em>unoccupied conjunction</em>, with both qualifiers retained.</li>
+<li><strong>G-09 (covariance-matching is not coverage — the single most drift-prone discipline in this book).</strong> The one PRIMARY-hosted claim here, CL-P3-11 at §6.3, states the affirmative contribution in <strong>separate sentences that are never bridged</strong>: covariance-matching is an <strong>exact, finite-sample, algebraic</strong> identity against a named CR2/RVE sandwich target; coverage is a <strong>separate</strong> operating characteristic — <strong>asymptotic in <span class="math inline">\(J\)</span>, simulation-shown, near nominal</strong>. The matching identity does not by itself establish coverage, and “matches exactly” never slides into “guarantees” or “ensures” coverage. No bare coverage percentage appears — only the qualitative “near nominal.”</li>
+<li><strong>G-06 (CCC is this review’s coinage).</strong> Cholesky Calibration Correction is this review’s own label for the meta-analytic operationalization of the calibrated-Bayes principle; it <strong>implements</strong> the Williams and Savitsky scale-and-shape projection mechanism. The mechanism is attributed to Williams and Savitsky; the name and the meta-analytic instantiation belong to this review.</li>
+<li><strong>G-16 (the unit-weight boundary is the exact contribution, not a limitation).</strong> The exact finite-sample matching identity holds <strong>at the unit-weight boundary</strong> over the matched equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>. That boundary is the site of an <strong>exact theoretical result</strong> — this review’s contribution — never a restriction adopted for tractability. Nonuniform weights and arbitrary heteroscedastic within-study covariance are scoped-out future work, framed as preconditions, not apologies.</li>
+</ul>
+<p>The formal theorems are cited <strong>motivationally only</strong> and are <strong>never re-proved here</strong>: they appear as prose cross-references to companion manuscripts (in preparation), not as <code>@</code>-citations, because those manuscripts carry no bibliography entries. The only PRIMARY-hosted claim in this chapter is CL-P3-11 (§6.3); §6.1 and §6.4 host no CL-IDs, and the two verbatim gap sentences at §6.2 are reprises whose primary hosts are §3.5 and §5.6.</p>
+</div>
+</div>
+</div>
+<p>The four pillars are now in place. Chapter 2 established that the frequentist robust-variance-estimation (RVE) lineage owns dependent-effect meta-analysis and fixed the marginal RVE/CHE sandwich covariance as the target any analogue must match. Chapter 3 documented that the Bayesian meta-analysis literature, for all its modeling flexibility, left that target unoccupied as a named posterior calibration object. Chapter 4 credited the calibrated-Bayes principle of Little and Rubin with the license to import the target, located the Williams and Savitsky Cholesky mechanism that operationalizes it, and named this review’s exact unit-weight-boundary identity. Chapter 5 made the affirmative case for a <em>specifically Bayesian</em> RVE and recorded this review’s matching results, holding matching and coverage apart. This chapter adds no fifth argument and asserts no new gap. It is the join: it supplies the reader with the claim-type key used throughout the book (§6.1), recalls the two documented gaps as twin anchors (§6.2), states this review’s affirmative contribution that occupies both (§6.3), and sorts the result into what is owned, what is borrowed, and what is deferred (§6.4). Nothing here is asserted for the first time except the affirmative contribution statement itself.</p>
+<section id="sec-claim-type-key" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="sec-claim-type-key"><span class="header-section-number">6.1</span> 6.1 Claim-type discipline as a reading key</h2>
+<p>Every load-bearing claim in this book carries a type, and the type is not decoration — it is a contract about evidence. The taxonomy is the key the reader has been using, often tacitly, across all five preceding chapters; stating it plainly here lets the convergence that follows be read precisely rather than impressionistically. A reviewer can read each tag as an instruction for what to demand. A <strong>THEOREM</strong> is an exact established result of the <em>program</em>, and of this review only; it is cited motivationally with its source and scope, never re-proved here. A result of the frequentist RVE field is therefore never typed THEOREM but rather CONDITIONAL, POSITIONING, or EMPIRICAL, because the label tracks ownership, not mere mathematical truth. A <strong>GAP-ASSERTION</strong> is a negative claim with warrant in <strong>documented systematic absence</strong> across an exhaustive search, never a single citation; phrased as “we found no published method that…,” never as an unconditional non-existence proof. A <strong>CONDITIONAL</strong> binds a claim to its condition in the same breath — “under [stated condition], [claim]” — and is never read as universal. A <strong>POSITIONING</strong> claim frames a contribution or a relation, asserted directly but with each component attributed to its owner. An <strong>EMPIRICAL</strong> claim rests on data or simulation, and its source must be <strong>named</strong>; bare figures are banned, and a qualitative reading (“near nominal”) stands in until an exact number is verified against its source.</p>
+<p>Two rules ride on top of the taxonomy, and together they are what make the funnel auditable. The first is the <strong>name-the-target rule</strong>: wherever the book touches calibration, a sandwich, or RVE covariance, it names the specific object (the marginal CR2/RVE sandwich covariance for the fixed-effect block, the matched equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>, the conditional versus the marginal covariance) because the argument moves between frequentist and Bayesian idioms and an unnamed “sandwich” invites misreading. The second is the <strong>matching-versus-coverage separation</strong>: covariance-matching (exact, finite-sample, algebraic) and coverage (asymptotic in <span class="math inline">\(J\)</span>, simulation-shown) are different <em>types</em> of claim living in different sentences wherever both appear, ensuring an algebraic identity is never quietly upgraded into an operating-characteristic guarantee. The calibrated-Bayes principle that licenses the whole construction is itself credited as prior art, not as a program invention, every time it is named. The payoff of the key is traceability: because each claim wears its type, its source, and (where the principle is borrowed) its attribution, a reader can stop at any sentence and reconstruct what would have to be true for it to hold and who would have to be cited to support it. The convergence of §6.2 and §6.3 is legible only because every element arrives pre-typed; §6.4 applies the key exhaustively to the finished contribution.</p>
+</section>
+<section id="sec-two-conjunctions" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="sec-two-conjunctions"><span class="header-section-number">6.2</span> 6.2 The two unoccupied conjunctions restated</h2>
+<p>The funnel’s two negative findings are recalled here side by side as the twin anchors of the join. Neither is established in this chapter. Each was documented at its full search breadth at its primary host upstream and is recalled below verbatim (exactly as locked) so the affirmative contribution in §6.3 can be read against the precise absences it occupies. The strength of each remains the strength of the documented search that produced it; nothing here adds to it.</p>
+<p>The first anchor is the gap documented in Chapter 3 (§3.5) across the breadth of the Bayesian meta-analysis literature — weakly informative priors, correlated- and correlated-hierarchical-effects working models, multivariate and three-level models, network meta-analysis including 2023–2025 entries, location-scale heterogeneity, structural-equation-model-based meta-analysis, and composite-likelihood / Open-Faced-Sandwich near-neighbors. Recalled here word for word (REPRISE CL-P2-02, primary at §3.5):</p>
+<blockquote class="blockquote">
+<p>We found no published Bayesian meta-analysis method that targets the RVE/CHE sandwich covariance as an explicit calibration target (in the frequentist-RVE sense), realigned under a Little/Rubin calibrated-Bayes license.</p>
+</blockquote>
+<p>The second anchor is the gap documented in Chapter 5 (§5.6) across the Bayesian meta-analysis, design-effect / small-area, and Bayesian survey literatures, where the conjunction of MCMC-based inference, a per-coefficient design-effect-ratio diagnostic, and the dependent-effect meta-analytic setting was found unoccupied. Recalled here word for word (REPRISE CL-P4-06, primary at §5.6):</p>
+<blockquote class="blockquote">
+<p>We found no published method that combines MCMC-based Bayesian inference with per-coefficient design-effect-ratio diagnostics for meta-analytic dependent effect sizes.</p>
+</blockquote>
+<p>Set side by side, the two sentences are reprises and nothing more. Each is <strong>combinatorial</strong>: every individual ingredient already exists in print (posterior recoloring, the marginal sandwich target, the calibrated-Bayes license, design-effect ratios, per-coefficient moderator selection), so each gap is only the <em>unoccupied conjunction</em> of those ingredients, never a priority claim over any single one (G-27). Neither is re-tagged as a fresh GAP-ASSERTION here, and neither is ever escalated to “no such method exists” (G-23). The near-neighbors that sharpen them are recalled in the same spirit, as non-counterexamples already adjudicated at their primary hosts. Wang, Lin and Liu <span class="citation" data-cites="wang2025">(<a href="references.html#ref-wang2025" role="doc-biblioref">2025</a>)</span> recolor toward a composite-likelihood Godambe target under an Open-Faced-Sandwich license anchored at the MAP — a different sandwich, a different license, a different anchor — and so sharpen the first conjunction without occupying it. Lee <span class="citation" data-cites="lee2026b">(<a href="references.html#ref-lee2026b" role="doc-biblioref">2026a</a>)</span> instantiates the Cholesky-sandwich-plus-per-coefficient-diagnostic move, but only at survey scope for a single survey, and so sharpens the second without performing the meta-analytic, dependent-effect version (G-22). Each near-neighbor confirms, rather than closes, its conjunction.</p>
+<p>Standing beside the two recalled negatives is their positioning counterpart, also recalled from Chapter 4 (§4.7): no prior Bayesian meta-analysis aimed the calibrated-Bayes principle — preserve the center, realign the covariance — at the RVE/CHE sandwich covariance as an explicit calibration target (REPRISE CL-P3-09, primary at §4.7). This is the affirmative-facing restatement of the same documented absence: where CL-P2-02 records that no Bayesian <em>method</em> occupies the target, CL-P3-09 records that no Bayesian <em>paper aimed the principle at it</em>, and the two are the negative and positioning faces of one finding, both hosted upstream. With the target named and owned (P1), the conjunction empirically unoccupied (P2 and P4), and the licensing principle established prior art that no one had yet aimed at this target (P3), the site this review fills is exactly located. Exactly one move closes it.</p>
+</section>
+<section id="sec-ccc-fills-gap" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="sec-ccc-fills-gap"><span class="header-section-number">6.3</span> 6.3 CCC fills the gap: exact matching, coverage held separate</h2>
+<p>That move is this review’s affirmative contribution, and stating what it delivers is the one PRIMARY-hosted claim of this chapter. Cholesky Calibration Correction (CCC) fills the identified gap: at the unit-weight boundary it matches a named marginal CR2/RVE sandwich covariance <strong>exactly</strong> in finite samples for the fixed-effect block, while leaving coverage as a <strong>separately</strong> demonstrated, asymptotic operating characteristic <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p3-11">CL-P3-11</a>, POSITIONING, PRIMARY HOST; G-06, G-09, G-16)</span>. The name is this review’s own coinage for the meta-analytic operationalization of the calibrated-Bayes principle, implementing the Williams and Savitsky <span class="citation" data-cites="williams2021">(<a href="references.html#ref-williams2021" role="doc-biblioref">2021</a>)</span> scale-and-shape Cholesky projection mechanism. The mechanism is attributed to Williams and Savitsky; the name and the meta-analytic instantiation belong to this review (G-06).</p>
+<p>The matching half of that statement is an <strong>exact, finite-sample, algebraic</strong> identity and the contribution, not a limitation to be hedged. At the unit-weight boundary, a posterior affinely recolored by the marginal RVE sandwich attains an exact finite-sample identity between the posterior’s marginal covariance and the named CR2/RVE sandwich target over the matched equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>. That this exactness is reached at the unit-weight boundary is this review’s own theoretical result and its contribution, not a restriction imposed for tractability; nonuniform weights and arbitrary heteroscedastic within-study covariance are scoped-out future extensions, named as preconditions (G-16). The object matched is named each time it appears — the marginal CR2/RVE sandwich covariance for the fixed-effect block — so the affirmative claim cannot be read as matching some other sandwich or some other posterior. Here, <code>CR2/RVE</code> names the practical CCC target: a companion manuscript supplies the raw likelihood-only marginal Godambe/RVE (CR0) theorem target, while CR2 is the small-sample sandwich refinement used for the fixed-effect CCC target in implementation. This identity is established by three CCC results, cited <strong>motivationally</strong> and never re-proved here: the conditional clusterwise identity and the strictly-more-general marginal fixed-effect sandwich identity of a companion manuscript — the marginal result resting on equality of matched marginal Gaussian densities with no compound-symmetric requirement — together with the covariance-matching algebra that recolors the posterior to the target and the neutrality of the correction under correct specification, both in a companion technical report. The exactness is original to this review, distinct in kind from the asymptotic Williams and Savitsky mechanism that motivates it.</p>
+<p>Coverage is a <strong>different</strong> claim, and the discipline of this chapter is to keep it in its own sentences. Covariance-matching is an exact, finite-sample, algebraic property of the calibrated posterior’s covariance relative to that named sandwich target. Coverage is a separate operating characteristic — asymptotic in <span class="math inline">\(J\)</span>, the number of studies, and demonstrated only by simulation under specified data-generating processes, where the calibrated intervals are near nominal. The two are distinct. Exact algebraic matching does <strong>not</strong> by itself establish nominal interval coverage, and “matches exactly” is never permitted to slide into “ensures coverage” (G-09). The simulation evidence is proof-of-concept under the conditions studied, not universal, and no specific coverage percentage is cited — only that the intervals are near nominal. What the matching gives is an algebraic identity; what the simulation gives, separately, is an operating characteristic shown to be near nominal. With both held apart, the two unoccupied conjunctions of §6.2 close affirmatively: the target the frequentist lineage fixed (P1), left unoccupied by the Bayesian literature (P2, anchor CL-P2-02) and un-aimed-at under the calibrated-Bayes principle (P3, CL-P3-09), is now matched exactly in finite samples at the unit-weight boundary by a Bayesian construction (P4, anchor CL-P4-06). The per-coefficient diagnostic is deferred to a forthcoming companion paper, with coverage held throughout as its own, separate, simulation-shown characteristic.</p>
+</section>
+<section id="sec-owned-borrowed-deferred" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="sec-owned-borrowed-deferred"><span class="header-section-number">6.4</span> 6.4 The claim-type discipline applied: owned vs borrowed vs deferred</h2>
+<p>The cleanest way to read the contribution is to apply the key of §6.1 exhaustively, sorting every load-bearing element into three columns (borrowed, owned, deferred) so no part of the join lacks an owner. What is <strong>borrowed</strong> is prior art, credited to its sources. The calibrated-Bayes principle (Bayesian models judged against frequentist operating characteristics; preserve the center, realign the covariance) is established in Little <span class="citation" data-cites="little2012">(<a href="references.html#ref-little2012" role="doc-biblioref">2012</a>)</span> and Rubin <span class="citation" data-cites="rubin1984">(<a href="references.html#ref-rubin1984" role="doc-biblioref">1984</a>)</span>. The program claims only its first application to the meta-analytic RVE covariance target, never the principle itself (G-24). The Cholesky scale-and-shape projection mechanism is Williams and Savitsky’s <span class="citation" data-cites="williams2021">(<a href="references.html#ref-williams2021" role="doc-biblioref">2021</a>)</span>, proven <strong>asymptotically</strong> as survey-side design theory; this review borrows the mechanism, not a finite-sample guarantee (G-08). What is <strong>owned</strong> is the assembly the borrowed pieces do not constitute: the exact finite-sample identity at the unit-weight boundary over the matched equicorrelation family (distinct in kind from the asymptotic Williams and Savitsky mechanism it implements), together with the meta-analytic application of the calibrated-Bayes principle to the marginal RVE/CHE sandwich target and the CCC name itself. What is <strong>deferred</strong> is named as future territory, not claimed here: the per-coefficient design-effect-ratio diagnostic is established at <em>survey</em> scope by Lee <span class="citation" data-cites="lee2026c">(<a href="references.html#ref-lee2026c" role="doc-biblioref">2026b</a>)</span>; its meta-analytic, per-coefficient extension for dependent effects (the contrast-level MCMC-versus-CCC workflow for selective correction) is the scope of a forthcoming companion paper, motivated here and not pre-empted (G-22). The boundaries that fall out of this sorting (the unit-weight boundary, the matched equicorrelation family, the asymptotic-and-simulation-shown status of coverage, the deferral of the per-coefficient diagnostic) are not concessions extracted from the contribution but the exact coordinates of it.</p>
+<p>The contribution is bounded precisely; the boundaries are preconditions, not apologies.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-lee2026b" class="csl-entry" role="listitem">
+Lee, J. (2026a). <em>A <span>Bayesian</span> hierarchical hurdle beta-binomial model for survey-weighted bounded counts and its application to childcare enrollment</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2603.02611">https://doi.org/10.48550/arXiv.2603.02611</a>
+</div>
+<div id="ref-lee2026c" class="csl-entry" role="listitem">
+Lee, J. (2026b). <em>Design effect ratios for <span>Bayesian</span> survey models: <span>A</span> diagnostic framework for identifying survey-sensitive parameters</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2603.07791">https://doi.org/10.48550/arXiv.2603.07791</a>
+</div>
+<div id="ref-little2012" class="csl-entry" role="listitem">
+Little, R. J. (2012). Calibrated bayes, an alternative inferential paradigm for official statistics. <em>Journal of Official Statistics</em>.
+</div>
+<div id="ref-rubin1984" class="csl-entry" role="listitem">
+Rubin, D. B. (1984). Bayesianly justifiable and relevant frequency calculations for the applied statistician. <em>The Annals of Statistics</em>. <a href="https://doi.org/10.1214/aos/1176346785">https://doi.org/10.1214/aos/1176346785</a>
+</div>
+<div id="ref-wang2025" class="csl-entry" role="listitem">
+Wang, Y., Lin, L., &amp; Liu, Y.-L. (2025). Exploiting multivariate network meta-analysis: A calibrated bayesian composite likelihood inference. <em>Bayesian Analysis</em>. <a href="https://doi.org/10.1214/25-ba1511">https://doi.org/10.1214/25-ba1511</a>
+</div>
+<div id="ref-williams2021" class="csl-entry" role="listitem">
+Williams, M. R., &amp; Savitsky, T. D. (2021). Uncertainty estimation for pseudo-bayesian inference under complex sampling. <em>International Statistical Review</em>. <a href="https://doi.org/10.1111/insr.12376">https://doi.org/10.1111/insr.12376</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-why-bayesian-rve.html" class="pagination-link" aria-label="Why Bayesian RVE specifically">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Why Bayesian RVE specifically</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./07-boundaries.html" class="pagination-link" aria-label="Boundaries &amp; open questions">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Bayesian meta-analysis &amp; the missing analogue – A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./04-calibrated-bayes.html" rel="next">
+<link href="./02-rve-lineage.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03-bayesian-gap.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction &amp; the inferential mismatch</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-rve-lineage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bayesian-gap.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-calibrated-bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The calibrated-Bayes lens</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-why-bayesian-rve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Why Bayesian RVE specifically</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-gap-and-contribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-boundaries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./98-appendix-claim-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix — Claim index (CL-IDs)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-appendix-database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Literature database &amp; pillar × theme map</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-flexibility-real" id="toc-sec-flexibility-real" class="nav-link active" data-scroll-target="#sec-flexibility-real"><span class="header-section-number">3.1</span> 3.1 The flexibility is real — on-scope/by-analogy split held explicit</a></li>
+  <li><a href="#sec-why-gap" id="toc-sec-why-gap" class="nav-link" data-scroll-target="#sec-why-gap"><span class="header-section-number">3.2</span> 3.2 Why the gap exists, without implying Bayesian deficiency</a></li>
+  <li><a href="#sec-sem-near-neighbor" id="toc-sec-sem-near-neighbor" class="nav-link" data-scroll-target="#sec-sem-near-neighbor"><span class="header-section-number">3.3</span> 3.3 SEM-based meta-analysis: a conditional near-neighbor</a></li>
+  <li><a href="#sec-multivariate-structure" id="toc-sec-multivariate-structure" class="nav-link" data-scroll-target="#sec-multivariate-structure"><span class="header-section-number">3.4</span> 3.4 Multivariate/multilevel: right structure, no sandwich-calibration objective</a></li>
+  <li><a href="#sec-the-gap" id="toc-sec-the-gap" class="nav-link" data-scroll-target="#sec-the-gap"><span class="header-section-number">3.5</span> 3.5 The gap, stated verbatim, and the off-target 2023–2025 frontier</a></li>
+  <li><a href="#sec-handforward" id="toc-sec-handforward" class="nav-link" data-scroll-target="#sec-handforward"><span class="header-section-number">3.6</span> 3.6 Hand-forward to P3: what is missing is the license</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-bayesian-gap" class="quarto-section-identifier"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Guardrails binding this chapter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This chapter is governed by the following overclaim guardrails, each stated as a precondition on what the prose may assert:</p>
+<ul>
+<li><strong>G-23 (documented systematic absence, not a non-existence proof):</strong> the chapter’s load-bearing negative is supported by the <em>breadth</em> of a documented Bayesian meta-analysis search — weakly informative priors, CE/CHE working models, multivariate and three-level models, network meta-analysis, location-scale heterogeneity, SEM-based meta-analysis, and composite-likelihood near-neighbors. It is phrased as “we found no published method that…,” never escalated to “no such method exists.”</li>
+<li><strong>G-27 (the gap is an unoccupied conjunction, not a single-ingredient priority claim):</strong> every individual ingredient — posterior recoloring toward a sandwich, a Godambe target, a design-effect ratio — already exists in print. The gap is the <em>conjunction</em> the literature has not occupied, and both of its qualifiers are retained at every statement: the RVE/CHE-sandwich <em>target</em> and the Little/Rubin <em>license</em>. The prose never claims priority over any single ingredient, and never says “the problem has never been formalized.”</li>
+<li><strong>G-26 (Cheung’s SEM equivalence is bounded by its unit-error-variance condition):</strong> the SEM–inverse-variance equivalence holds only when the transformed Level-1 error variance is fixed equal to one and does not hold under heteroscedasticity; SEM-based meta-analysis is surveyed as a <em>conditional</em> near-neighbor, never as a universal equivalent to frequentist RVE.</li>
+</ul>
+<p>The chapter carries the verbatim CL-P2-02 gap sentence <strong>exactly once</strong>, at §3.5, where it is single-hosted; every near-neighbor named anywhere in the chapter is discussed as a <em>non-counterexample</em> that sharpens the conjunction, and none is ever tagged as supporting the gap.</p>
+</div>
+</div>
+</div>
+<p>The previous chapter fixed a specific object — the marginal RVE/CHE sandwich covariance of the effect-size vector — and made it the standard any dependent-effect analogue must match. This chapter asks the obvious next question: has the Bayesian meta-analysis literature, in all its breadth, ever targeted that same object as an explicit calibration target? Bayesian meta-analysis is a genuinely flexible, modeling-centric enterprise. It supports weakly informative priors on heterogeneity, invariant priors derived from first principles, hierarchical model-averaging, full multivariate and three-level structures, and covariate-dependent location-scale heterogeneity — and that flexibility is real and well documented. The argument of this chapter is therefore not that the Bayesian tradition is too thin to host a robust-variance analogue. It is the opposite: the tradition is capable across its published breadth, yet across that same breadth no method targets the marginal RVE/CHE sandwich covariance as an explicit calibration target in the frequentist-RVE sense. The two facts are not in tension. The first establishes the second’s character: the absence is one of <em>application</em>, not of Bayesian capacity. This chapter establishes the flexibility first, holding the on-scope/by-analogy distinction explicit so the flexibility is read off the right sources; it then documents the gap as a systematic absence, explains structurally why such an object has not arisen, bounds the near-neighbors that might be mistaken for analogues, and hands forward to the calibrated-Bayes license that would close it.</p>
+<section id="sec-flexibility-real" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-flexibility-real"><span class="header-section-number">3.1</span> 3.1 The flexibility is real — on-scope/by-analogy split held explicit</h2>
+<p>Bayesian meta-analysis is modeling-centric and genuinely flexible: weakly informative priors on heterogeneity, hierarchical and three-level random-effects, multivariate and correlated-effects structures, and covariate-dependent location-scale heterogeneity. This prior and structural flexibility is real and well documented <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-01">CL-P2-01</a>, EMPIRICAL)</span>. The claim is positive and load-bearing for the whole chapter: a literature this capable, that has nonetheless not aimed at one specific covariance target, exhibits a gap of application, not of incapacity. The discipline that makes the claim defensible is a split that must stay <em>inside the sentence</em>: genuinely <em>Bayesian</em> flexibility is evidenced by on-scope Bayesian sources, while the broader structural landscape (much of it frequentist) is admitted only by analogy, never recruited as Bayesian-flexibility evidence.</p>
+<p>The on-scope Bayesian carriers establish the flexibility directly, each on a different axis. On the prior-modeling axis, Williams, Rast and Bürkner <span class="citation" data-cites="williams2018">(<a href="references.html#ref-williams2018" role="doc-biblioref">2018</a>)</span> characterize and validate half-<em>t</em> and inverse-gamma priors for the between-study variance τ², the canonical weakly-informative-prior leg. The half-<em>t</em> / half-Cauchy variance-prior family for hierarchical scale parameters traces to Gelman <span class="citation" data-cites="gelman2006">(<a href="references.html#ref-gelman2006" role="doc-biblioref">2006</a>)</span>, and Gelman, Jakulin, Pittau and Su <span class="citation" data-cites="gelman2008">(<a href="references.html#ref-gelman2008" role="doc-biblioref">2008</a>)</span> supply the canonical default weakly-informative (Cauchy) prior on standardized coefficients, cited strictly as documented prior-flexibility evidence rather than as a meta-analysis method. On the invariant-prior axis, Mathur <span class="citation" data-cites="mathur2025">(<a href="references.html#ref-mathur2025" role="doc-biblioref">2025</a>)</span> derives two invariant Jeffreys priors for the meta-analytic location and heterogeneity, with posterior mode, mean and median estimators and central or shortest credible intervals. On the model-structure axis, Bartoš, Maier, Wagenmakers and colleagues <span class="citation" data-cites="bartos2026">(<a href="references.html#ref-bartos2026" role="doc-biblioref">2026</a>)</span> supply hierarchical three-level Bayesian model-averaging across selection-model and PET–PEESE components. And on the location-scale axis, Jansen and colleagues <span class="citation" data-cites="jansen2026">(<a href="references.html#ref-jansen2026" role="doc-biblioref">2026</a>)</span> and Blowes and colleagues <span class="citation" data-cites="blowes2026">(<a href="references.html#ref-blowes2026" role="doc-biblioref">2026</a>)</span> fit double-hierarchical location-scale models in which between-study variances — and, in Jansen and colleagues <span class="citation" data-cites="jansen2026">(<a href="references.html#ref-jansen2026" role="doc-biblioref">2026</a>)</span>, the full between-study variance-covariance and correlations — are made covariate-dependent and estimated by weakly informative Bayesian MCMC. Each of these is cited as motivation for the Bayesian approach, and none as evidence that a Bayesian RVE analogue already exists.</p>
+<p>The broader multivariate, correlated-effects and network apparatus is likewise mature, primarily in the (largely frequentist) meta-analytic literature, and Bayesian realizations inherit it <em>by analogy</em>. This is the load-bearing part of the split. Jackson, Riley and White <span class="citation" data-cites="jackson2011">(<a href="references.html#ref-jackson2011" role="doc-biblioref">2011</a>)</span> and Jackson, Viechtbauer and van Aert <span class="citation" data-cites="jackson2024">(<a href="references.html#ref-jackson2024" role="doc-biblioref">2024</a>)</span> enumerate multivariate random-effects models with within-study and between-study covariance and multiple estimation routes (REML, method of moments), so they evidence the <em>structural-flexibility landscape</em> by analogy — they are not Bayesian-flexibility instantiations, and they must never be recruited as such. With the split held explicit, the conclusion is positive and precise: this prior and structural flexibility is real and well documented, and it is exactly this established capacity that licenses the chapter to read the absence of a published Bayesian RVE analogue as a matter of application, not of Bayesian incapacity.</p>
+</section>
+<section id="sec-why-gap" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="sec-why-gap"><span class="header-section-number">3.2</span> 3.2 Why the gap exists, without implying Bayesian deficiency</h2>
+<p>If the flexibility is real, why has the object never been targeted? An absence with no structural explanation invites suspicion that the search merely missed it. Yet the absence admits a structural explanation <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-03">CL-P2-03</a>, POSITIONING; G-23)</span>. Because the Bayesian analyst retains the posterior as the primary inferential object, the frequentist sandwich, though theoretically motivated, does not by itself supply a <em>named posterior target</em> that a Bayesian workflow can adopt. A posterior calibrated to a specific marginal RVE/CHE sandwich covariance is simply not a standard reporting object in the Bayesian meta-analysis literature. This explains <em>why</em> the gap of §3.5 exists, crediting the posterior-as-primary-object premise rather than attacking the Bayesian paradigm: the convention reports a posterior distribution, its credible intervals and directional probabilities, not a covariance recalibrated to an external sandwich estimand.</p>
+<p>The convention is visible across the on-scope literature. Williams, Rast and Bürkner <span class="citation" data-cites="williams2018">(<a href="references.html#ref-williams2018" role="doc-biblioref">2018</a>)</span>, Mathur <span class="citation" data-cites="mathur2025">(<a href="references.html#ref-mathur2025" role="doc-biblioref">2025</a>)</span> and Jansen and colleagues <span class="citation" data-cites="jansen2026">(<a href="references.html#ref-jansen2026" role="doc-biblioref">2026</a>)</span> each keep the full posterior (the distribution of τ², credible intervals, directional posterior probabilities) as the sole inferential object, and none raises a covariance-calibration target. The calibration object is not absent because it was tried and abandoned, but because the question is never posed. The most direct corroboration is first-party, and it is the kind of concession an adversarial reviewer cannot wave away. Bartoš and colleagues <span class="citation" data-cites="bartos2026">(<a href="references.html#ref-bartos2026" role="doc-biblioref">2026</a>)</span> keep the model-averaged posterior and inclusion Bayes factors primary. Their footnote records that they decline cluster-robust standard errors precisely because no Bayesian counterpart currently exists. A methodological team working at the Bayesian frontier states, in its own words, that the sandwich-calibrated covariance is not an available named posterior target — exactly the convention this section names. The claim here is structural and positioning, which the corpus can at most exemplify; the systematic-absence framing of §3.5 carries the weight (G-23), and the example confirms the convention rather than proving a non-existence.</p>
+</section>
+<section id="sec-sem-near-neighbor" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="sec-sem-near-neighbor"><span class="header-section-number">3.3</span> 3.3 SEM-based meta-analysis: a conditional near-neighbor</h2>
+<p>The first hard objection a reviewer would raise is the most specific: surely Cheung’s structural-equation-modeling (SEM) formulation already supplies an inverse-variance equivalent. It does not, in general, and the bound is precise <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-04">CL-P2-04</a>, CONDITIONAL; G-26)</span>. Cheung’s SEM–inverse-variance equivalence holds <em>only</em> when the Level-1 (transformed) error variance is fixed equal to one, and it does not hold under heteroscedasticity. The equivalence rests on transforming the within-study error so that its variance is exactly one — <span class="math inline">\(W^{1/2} V_e W^{1/2} = I_k\)</span> in Cheung <span class="citation" data-cites="cheung2008">(<a href="references.html#ref-cheung2008" role="doc-biblioref">2008</a>, Eq. 19)</span> — and, in the definition-variable representation of Cheung <span class="citation" data-cites="cheung2013">(<a href="references.html#ref-cheung2013" role="doc-biblioref">2013</a>, Eq. 11)</span>, on treating the within-study sampling covariance as known. Outside that unit-error-variance, V-known regime (precisely the heteroscedastic regimes the frequentist sandwich was built to absorb), the equivalence does not obtain.</p>
+<p>SEM-based meta-analysis is therefore a <em>conditional near-neighbor</em>, bounded by its unit-error-variance condition. Within the meta-analytic-SEM (MASEM) lineage the boundary is corroborated from the other side: Bilici and colleagues <span class="citation" data-cites="bilici2025">(<a href="references.html#ref-bilici2025" role="doc-biblioref">2025</a>)</span> frame current MASEM dependence-handling as not uniformly handling within-study dependence. The conditional framing is the whole point and what makes the boundary informative: SEM reaches the neighborhood of a covariance equivalence and stops at the homoscedastic wall, short of the heteroscedasticity-robust, calibration-targeted object of §3.5. It is named here as a non-counterexample that <em>sharpens</em> the conjunction, never as a prior RVE solution or as support for the gap.</p>
+</section>
+<section id="sec-multivariate-structure" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="sec-multivariate-structure"><span class="header-section-number">3.4</span> 3.4 Multivariate/multilevel: right structure, no sandwich-calibration objective</h2>
+<p>The second hard objection is structural: multivariate and multilevel Bayesian meta-analysis already models within- and between-study dependence directly, so the machinery for a sandwich analogue is in place. The concession here is genuine, and the bound is again precise <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-05">CL-P2-05</a>, CONDITIONAL; G-23)</span>. Multivariate and multilevel meta-analysis — Jackson, Riley and White <span class="citation" data-cites="jackson2011">(<a href="references.html#ref-jackson2011" role="doc-biblioref">2011</a>)</span>, Van den Noortgate and colleagues <span class="citation" data-cites="vandennoortgate2015">(<a href="references.html#ref-vandennoortgate2015" role="doc-biblioref">2015</a>)</span>, Fernández-Castilla and colleagues <span class="citation" data-cites="fernandezcastilla2021">(<a href="references.html#ref-fernandezcastilla2021" role="doc-biblioref">2021</a>)</span> — models within- and between-study dependence hierarchically and preserves observation-level design matrices when moderators vary within study. This is the <em>right structural direction</em> — observation-level representation with design matrices preserved is precisely the structure a Bayesian analogue would build on — and the pillar concedes it as such without reservation.</p>
+<p>Yet none of these methods pairs that structure with a calibrated-Bayes realignment of the posterior covariance to a frequentist-RVE sandwich target. The structure is present; the sandwich-calibration <em>objective</em> is not. Each of these methods estimates a <em>model-based</em> between-study covariance (by REML, by method of moments, or by its Bayesian counterpart) and reports inference from it. None realigns that covariance toward the marginal RVE/CHE sandwich estimand; for this Bayesian-framed claim, most carriers are moreover frequentist and the structural match holds by analogy. Even the strongest near-neighbor sharpens rather than closes the conjunction. Jansen and colleagues <span class="citation" data-cites="jansen2026">(<a href="references.html#ref-jansen2026" role="doc-biblioref">2026</a>)</span>, who let the full between-study variance-covariance matrix depend on covariates, embody about as rich a multivariate Bayesian structure as the literature offers, yet never adopt the sandwich-calibration objective. The richest available structure still leaves the calibration target unoccupied, narrowing the conjunction precisely by occupying so much of the structural neighborhood without occupying the target. Naming the covariance target every time — the marginal RVE/CHE sandwich — the claim is bounded conditionally: structure is part of the right direction; the sandwich-calibration pairing is what is absent. It is never escalated to a non-existence proof.</p>
+</section>
+<section id="sec-the-gap" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="sec-the-gap"><span class="header-section-number">3.5</span> 3.5 The gap, stated verbatim, and the off-target 2023–2025 frontier</h2>
+<p>Having conceded the flexibility (§3.1), explained the absence (§3.2), and bounded the two nearest structural neighbors (§§3.3–3.4), the chapter states its load-bearing assertion. Surveying the Bayesian meta-analysis literature in full — weakly informative and invariant priors, correlated-effects and correlated-hierarchical-effects (CE/CHE) working models, multivariate and three-level structure, network meta-analysis including 2023–2025 entries, location-scale heterogeneity, SEM-based meta-analysis, and composite-likelihood / Open-Faced-Sandwich near-neighbors — yields one assertion, stated here in its locked wording and nowhere else <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-02">CL-P2-02</a>, GAP-ASSERTION; G-23, G-27)</span>:</p>
+<blockquote class="blockquote">
+<p>We found no published Bayesian meta-analysis method that targets the RVE/CHE sandwich covariance as an explicit calibration target (in the frequentist-RVE sense), realigned under a Little/Rubin calibrated-Bayes license.</p>
+</blockquote>
+<p>This assertion carries no citation, by design: its evidence is not any single carrier but the <em>breadth</em> of the documented search behind it. The strength of the claim equals the strength of that search, which spans weakly informative priors, CE/CHE working models, multivariate and three-level models, network meta-analysis including 2023–2025 entries, location-scale heterogeneity, SEM-based meta-analysis, and composite-likelihood / Open-Faced-Sandwich near-neighbors. The claim is phrased as the <em>unoccupied conjunction</em>, both qualifiers retained — the RVE/CHE-sandwich <em>target</em> and the Little/Rubin <em>license</em> — and is never escalated to a proof that no such method exists or that the problem has never been formalized. Every individual ingredient (posterior recoloring, a sandwich or Godambe covariance, a calibrated-Bayes license) is already in print; what the search does not find is their <em>conjunction</em> aimed at the marginal RVE/CHE meta-regression target (G-27).</p>
+<p>The decisive adversarial pressure on a gap claim is always the most recent stratum, and the 2023–2025 frontier is genuinely active — which is precisely why it must be examined rather than waved past <span class="claim-tag">(<a href="./98-appendix-claim-index.html#cl-p2-06">CL-P2-06</a>, CONDITIONAL; G-23, G-27)</span>. The frontier is active, and it is off-target. Wang, Lin and Liu <span class="citation" data-cites="wang2025">(<a href="references.html#ref-wang2025" role="doc-biblioref">2025</a>)</span> are the nearest of the recent entries: they recolor a posterior toward a composite-likelihood <em>Godambe</em> sandwich under a Shaby (2014) Open-Faced-Sandwich license anchored at the maximum a posteriori (MAP) estimate. That is a different sandwich (Godambe, not the RVE/CHE meta-regression target), a different license (Open-Faced-Sandwich, not Little/Rubin), and a different anchor (the MAP, not the posterior mean) — three coordinates away from the conjunction the locked sentence names, so the method acknowledges the nearest neighbor without closing the meta-regression RVE gap. The surrounding frontier sits beside it in the same off-target role: Lambardi di San Miniato and colleagues <span class="citation" data-cites="lambardidisanminiato2021">(<a href="references.html#ref-lambardidisanminiato2021" role="doc-biblioref">2021</a>)</span> recolor toward a composite-likelihood Godambe variance under a Ribatet–Miller asymptotic license; Liu and colleagues <span class="citation" data-cites="liu2025">(<a href="references.html#ref-liu2025" role="doc-biblioref">2025</a>)</span> and Guolo <span class="citation" data-cites="guolo2023">(<a href="references.html#ref-guolo2023" role="doc-biblioref">2023</a>)</span> are frequentist Godambe-sandwich methods, none under a Little/Rubin license aimed at the RVE/CHE meta-regression target; and the earlier frequentist network-meta reference point, White and colleagues <span class="citation" data-cites="white2012">(<a href="references.html#ref-white2012" role="doc-biblioref">2012</a>)</span>, sits beneath all of these. The frontier is genuinely active, no entry on it hits the target, and network meta-analysis is not presented as closing the meta-regression RVE gap. Each near-neighbor is a non-counterexample that sharpens the conjunction, by its specific mismatch of sandwich, license or anchor; none is tagged as supporting the gap.</p>
+</section>
+<section id="sec-handforward" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="sec-handforward"><span class="header-section-number">3.6</span> 3.6 Hand-forward to P3: what is missing is the license</h2>
+<p>The pattern is now complete, dictating what the next chapter must supply. Bayesian meta-analysis is flexible and modeling-centric (§3.1); the structural direction of its multivariate and multilevel programs is right (§3.4); the marginal RVE/CHE sandwich covariance is simply not yet a named posterior calibration target within it (§§3.2, 3.5); and the nearest programs — SEM-based (§3.3), multivariate/multilevel (§3.4), and the composite-likelihood frontier (§3.5) — supply ingredients without occupying the conjunction. Read adversarially, the chapter has handed the skeptic every near-neighbor in turn, watching each fall short of the same conjunction and qualifier. These establish what the gap is <em>not</em>: not a deficiency of Bayesian capacity, because the capacity is everywhere documented.</p>
+<p>What is missing is not Bayesian capacity but a principled <em>warrant</em> for importing a frequentist covariance target into Bayesian inference: a license under which adopting a sandwich covariance as a calibration objective is justified rather than ad hoc. The flexibility is there; the structure is there. What no Bayesian meta-analysis has had is a license that says, in principled terms, <em>why</em> a posterior should be realigned to a frequentist sandwich while its center is preserved. That warrant is the calibrated-Bayes principle of Little <span class="citation" data-cites="little2012">(<a href="references.html#ref-little2012" role="doc-biblioref">2012</a>)</span> and Rubin <span class="citation" data-cites="rubin1984">(<a href="references.html#ref-rubin1984" role="doc-biblioref">1984</a>)</span>, which judges a Bayesian model against frequentist operating characteristics (preserve the center, realign the covariance) and is established prior art rather than anything this review invents. The next chapter develops that principle as the bridge that turns the documented gap of this chapter into a well-posed Bayesian target.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-bartos2026" class="csl-entry" role="listitem">
+Bartoš, F., Maier, M., &amp; Wagenmakers, E.-J. (2026). Robust <span>Bayesian</span> multilevel meta-analysis: Adjusting for publication bias in the presence of dependent effect sizes. <em>Behavior Research Methods</em>, <em>58</em>(6), 165. <a href="https://doi.org/10.3758/s13428-026-03023-y">https://doi.org/10.3758/s13428-026-03023-y</a>
+</div>
+<div id="ref-bilici2025" class="csl-entry" role="listitem">
+Bilici, Z. Ş., Noortgate, W. V. den, &amp; Jak, S. (2025). Six ways to handle dependent effect sizes in meta-analytic structural equation modeling: Is there a gold standard? <em>Research Synthesis Methods</em>, <em>16</em>(1), 60–86. <a href="https://doi.org/10.1017/rsm.2024.10">https://doi.org/10.1017/rsm.2024.10</a>
+</div>
+<div id="ref-blowes2026" class="csl-entry" role="listitem">
+Blowes, S. A. (2026). Location-scale models and cross validation to advance quantitative evidence synthesis. <em>Ecology</em>, <em>107</em>(1), e70303. <a href="https://doi.org/10.1002/ecy.70303">https://doi.org/10.1002/ecy.70303</a>
+</div>
+<div id="ref-cheung2008" class="csl-entry" role="listitem">
+Cheung, M. W.-L. (2008). A model for integrating fixed-, random-, and mixed-effects meta-analyses into structural equation modeling. <em>Psychological Methods</em>. <a href="https://doi.org/10.1037/a0013163">https://doi.org/10.1037/a0013163</a>
+</div>
+<div id="ref-cheung2013" class="csl-entry" role="listitem">
+Cheung, M. W.-L. (2013). Multivariate meta-analysis as structural equation models. <em>Structural Equation Modeling: A Multidisciplinary Journal</em>. <a href="https://doi.org/10.1080/10705511.2013.797827">https://doi.org/10.1080/10705511.2013.797827</a>
+</div>
+<div id="ref-fernandezcastilla2021" class="csl-entry" role="listitem">
+Fernández-Castilla, B., Aloe, A. M., Declercq, L., Jamshidi, L., Beretvas, S. N., Onghena, P., &amp; Van den Noortgate, W. (2021). Estimating outcome-specific effects in meta-analyses of multiple outcomes: A simulation study. <em>Behavior Research Methods</em>. <a href="https://doi.org/10.3758/s13428-020-01459-4">https://doi.org/10.3758/s13428-020-01459-4</a>
+</div>
+<div id="ref-gelman2006" class="csl-entry" role="listitem">
+Gelman, A. (2006). Prior distributions for variance parameters in hierarchical models (comment on article by browne and draper). <em>Bayesian Analysis</em>. <a href="https://doi.org/10.1214/06-BA117A">https://doi.org/10.1214/06-BA117A</a>
+</div>
+<div id="ref-gelman2008" class="csl-entry" role="listitem">
+Gelman, A., Jakulin, A., Pittau, M. G., &amp; Su, Y.-S. (2008). A weakly informative default prior distribution for logistic and other regression models. <em>The Annals of Applied Statistics</em>. <a href="https://doi.org/10.1214/08-AOAS191">https://doi.org/10.1214/08-AOAS191</a>
+</div>
+<div id="ref-guolo2023" class="csl-entry" role="listitem">
+Guolo, A. (2023). Approximate likelihood and pseudo-likelihood inference in meta-analysis of diagnostic accuracy studies accounting for disease prevalence and study design. <em>Statistics in Medicine</em>. <a href="https://doi.org/10.1002/sim.9878">https://doi.org/10.1002/sim.9878</a>
+</div>
+<div id="ref-jackson2011" class="csl-entry" role="listitem">
+Jackson, D., Riley, R., &amp; White, I. R. (2011). Multivariate meta-analysis: Potential and promise. <em>Statistics in Medicine</em>. <a href="https://doi.org/10.1002/sim.4172">https://doi.org/10.1002/sim.4172</a>
+</div>
+<div id="ref-jackson2024" class="csl-entry" role="listitem">
+Jackson, D., Viechtbauer, W., &amp; Aert, R. C. M. van. (2024). Multistep estimators of the between-study covariance matrix under the multivariate random-effects model for meta-analysis. <em>Statistics in Medicine</em>. <a href="https://doi.org/10.1002/sim.9985">https://doi.org/10.1002/sim.9985</a>
+</div>
+<div id="ref-jansen2026" class="csl-entry" role="listitem">
+Jansen, K., &amp; Nestler, S. (2026). Multivariate location-scale models for meta-analysis. <em>Multivariate Behavioral Research</em>, <em>0</em>(0), 1–19. <a href="https://doi.org/10.1080/00273171.2026.2643868">https://doi.org/10.1080/00273171.2026.2643868</a>
+</div>
+<div id="ref-little2012" class="csl-entry" role="listitem">
+Little, R. J. (2012). Calibrated bayes, an alternative inferential paradigm for official statistics. <em>Journal of Official Statistics</em>.
+</div>
+<div id="ref-liu2025" class="csl-entry" role="listitem">
+Liu, Y.-L., Zhang, B., Chu, H., &amp; Chen, Y. (2025). Network meta-analysis made simple: A composite likelihood approach. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1017/rsm.2024.12">https://doi.org/10.1017/rsm.2024.12</a>
+</div>
+<div id="ref-mathur2025" class="csl-entry" role="listitem">
+Mathur, M. B. (2025). Meta-analysis with jeffreys priors: Empirical frequentist properties. <em>Research Synthesis Methods</em>, <em>16</em>(1), 87–122. <a href="https://doi.org/10.1017/rsm.2024.2">https://doi.org/10.1017/rsm.2024.2</a>
+</div>
+<div id="ref-lambardidisanminiato2021" class="csl-entry" role="listitem">
+Miniato, M. L. di S., &amp; Sartori, N. (2021). <em>Adjusted composite likelihood for robust <span>Bayesian</span> meta-analysis</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2104.01920">https://doi.org/10.48550/arXiv.2104.01920</a>
+</div>
+<div id="ref-rubin1984" class="csl-entry" role="listitem">
+Rubin, D. B. (1984). Bayesianly justifiable and relevant frequency calculations for the applied statistician. <em>The Annals of Statistics</em>. <a href="https://doi.org/10.1214/aos/1176346785">https://doi.org/10.1214/aos/1176346785</a>
+</div>
+<div id="ref-vandennoortgate2015" class="csl-entry" role="listitem">
+Van Den Noortgate, W., López-López, J. A., Marín-Martínez, F., &amp; Sánchez-Meca, J. (2015). Meta-analysis of multiple outcomes: A multilevel approach. <em>Behavior Research Methods</em>. <a href="https://doi.org/10.3758/s13428-014-0527-2">https://doi.org/10.3758/s13428-014-0527-2</a>
+</div>
+<div id="ref-wang2025" class="csl-entry" role="listitem">
+Wang, Y., Lin, L., &amp; Liu, Y.-L. (2025). Exploiting multivariate network meta-analysis: A calibrated bayesian composite likelihood inference. <em>Bayesian Analysis</em>. <a href="https://doi.org/10.1214/25-ba1511">https://doi.org/10.1214/25-ba1511</a>
+</div>
+<div id="ref-white2012" class="csl-entry" role="listitem">
+White, I. R., Barrett, J. K., Jackson, D., &amp; Higgins, J. P. T. (2012). Consistency and inconsistency in network meta-analysis: Model estimation using multivariate meta-regression. <em>Research Synthesis Methods</em>. <a href="https://doi.org/10.1002/jrsm.1045">https://doi.org/10.1002/jrsm.1045</a>
+</div>
+<div id="ref-williams2018" class="csl-entry" role="listitem">
+Williams, D. R., Rast, P., &amp; Bürkner, P.-C. (2018). <em>Bayesian meta-analysis with weakly informative prior distributions</em>. <a href="https://doi.org/10.31234/osf.io/7tbrm">https://doi.org/10.31234/osf.io/7tbrm</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./02-rve-lineage.html" class="pagination-link" aria-label="The frequentist RVE lineage owns it">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./04-calibrated-bayes.html" class="pagination-link" aria-label="The calibrated-Bayes lens">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The calibrated-Bayes lens</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

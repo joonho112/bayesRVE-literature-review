@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Boundaries &amp; open questions – A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./06-gap-and-contribution.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ccb035bea26c1e21f80f44cf7c27909.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-boundaries.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction &amp; the inferential mismatch</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-rve-lineage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">The frequentist RVE lineage owns it</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-bayesian-gap.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Bayesian meta-analysis &amp; the missing analogue</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-calibrated-bayes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The calibrated-Bayes lens</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-why-bayesian-rve.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Why Bayesian RVE specifically</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-gap-and-contribution.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-boundaries.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./98-appendix-claim-index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Appendix — Claim index (CL-IDs)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./99-appendix-database.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Literature database &amp; pillar × theme map</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-scope-exact-identity" id="toc-sec-scope-exact-identity" class="nav-link active" data-scroll-target="#sec-scope-exact-identity"><span class="header-section-number">7.1</span> 7.1 Scope of the exact identity</a></li>
+  <li><a href="#sec-conditional-and-coverage" id="toc-sec-conditional-and-coverage" class="nav-link" data-scroll-target="#sec-conditional-and-coverage"><span class="header-section-number">7.2</span> 7.2 Conditional on <span class="math inline">\(\omega^2\)</span>; covariance-matching is not coverage; the multivariate question open</a></li>
+  <li><a href="#sec-der-paper-c" id="toc-sec-der-paper-c" class="nav-link" data-scroll-target="#sec-der-paper-c"><span class="header-section-number">7.3</span> 7.3 The per-coefficient DER: motivated here, developed in a forthcoming companion paper</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span id="sec-boundaries" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Boundaries &amp; open questions</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Guardrails binding this chapter
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is the closing chapter, and it hosts <strong>no new claim</strong>. Every boundary stated below is a <strong>scope echo</strong> of a claim already established at full search-breadth in Chapter 4 or Chapter 5; this chapter re-states those scope clauses one final time and reframes each as a <strong>precondition</strong>: the exact coordinate at which a result holds, never as a limitation, never as an apology. The object at issue is named each time it appears: the marginal CR2/RVE sandwich covariance for the fixed-effect block, matched over the equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>.</p>
+<ul>
+<li><strong>G-16 (the unit-weight boundary is the exact contribution, not a limitation).</strong> The exact finite-sample matching identity holds <strong>at the unit-weight boundary</strong> over the matched equicorrelation family. That boundary is the site of an <strong>exact theoretical result</strong>, this review’s contribution, never a restriction adopted for tractability. Nonuniform weights are scoped-out future work, framed as a research direction, not a concession.</li>
+<li><strong>G-17 (equicorrelation-family scope, not arbitrary SPD).</strong> The exact conditional identity is proven over the <strong>matched equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span></strong> with arbitrary per-cluster scale <span class="math inline">\(a_j &gt; 0\)</span>, not over arbitrary heteroscedastic or symmetric-positive-definite (SPD) within-study covariance; the SPD generalization is named as an open extension, never as a covered case.</li>
+<li><strong>G-18 (the marginal identity is strictly more general).</strong> The marginal fixed-effect sandwich identity, after the random intercepts <span class="math inline">\(\theta_j\)</span> are integrated out, rests only on equality of matched marginal Gaussian densities with no compound-symmetric requirement; it is <strong>strictly more general</strong> than the conditional/equicorrelation bridge, and the two scopes are kept distinct, never flattened to one.</li>
+<li><strong>G-12 (the matching is conditional on the plug-in <span class="math inline">\(\omega^2\)</span>).</strong> The algebraic identities are exact <strong>given</strong> <span class="math inline">\(\omega^2\)</span> and the within-study correlation; if <span class="math inline">\(\omega^2\)</span> is badly misspecified the <strong>target itself</strong> is wrong, and no data-driven self-correction is claimed.</li>
+<li><strong>G-09 (covariance-matching is not coverage — the single most drift-prone discipline in this book).</strong> Covariance-matching is an <strong>exact, finite-sample, algebraic</strong> identity against the named CR2/RVE sandwich target; coverage is a <strong>separate</strong> operating characteristic: <strong>asymptotic in <span class="math inline">\(J\)</span>, simulation-shown</strong>. The two live in <strong>separate sentences</strong>, and the matching identity is never read as a coverage guarantee.</li>
+<li><strong>G-13 (the simulation evidence is proof-of-concept).</strong> The simulation evidence (TSL15 / sim3, intercept-only) is <strong>proof-of-concept under specified data-generating processes</strong>, where the calibrated intervals are <strong>near nominal</strong>; multivariate coefficient-level behavior is named as open, and no bare coverage percentage appears.</li>
+<li><strong>G-22 (the per-coefficient DER is survey-scope here; the meta-analytic workflow is a forthcoming companion paper).</strong> Lee <span class="citation" data-cites="lee2026c">(<a href="references.html#ref-lee2026c" role="doc-biblioref">2026</a>)</span> establishes the design-effect-ratio (DER) diagnostic for Bayesian <strong>survey</strong> models; the meta-analytic per-coefficient/contrast-level reporting workflow is <strong>a forthcoming companion paper’s</strong> territory, motivated here and not pre-empted. Current <code>bayesRVE</code> outputs already include scoped DER-adjacent quantities: narrower than that workflow, not absent.</li>
+</ul>
+<p>This chapter hosts <strong>no new CL-IDs</strong>: §7.1 is a scope echo of CL-P3-06 and CL-P4-07/08, §7.2 of CL-P4-09/10, and §7.3 of CL-P4-04/05, each restating an already-hosted scope clause as a precondition. The formal theorems are cited <strong>motivationally only</strong> and are <strong>never re-proved here</strong>: they appear as prose cross-references to companion manuscripts (in preparation), not as <code>@</code>-citations, because those manuscripts carry no bibliography entries.</p>
+</div>
+</div>
+</div>
+<p>A precisely bounded contribution is a stronger contribution than a vaguely large one, because its claims are exactly the claims its evidence supports. A reviewer who has followed the funnel — the frequentist robust-variance-estimation (RVE) lineage owns the marginal RVE/CHE sandwich covariance as the target (Chapter 2), the Bayesian literature left it unoccupied as a named posterior calibration object (Chapter 3), the calibrated-Bayes principle of Little and Rubin licensed its import (Chapter 4), and Cholesky Calibration Correction (CCC) delivers the join (Chapter 5) — is owed an exact statement of where each result holds. This chapter supplies it. It restates three boundaries already attached to this review’s claims upstream (the scope of the exact identity in §7.1, the conditionality of the matching results and their separation from coverage in §7.2, and the survey-scope origin of the per-coefficient diagnostic in §7.3) and reads each off as a precondition: the exact coordinate at which the result is true, not a fence around what it cannot do. Each boundary doubles as an open question this review has chosen not to pre-resolve, and the funnel then closes affirmatively.</p>
+<section id="sec-scope-exact-identity" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="sec-scope-exact-identity"><span class="header-section-number">7.1</span> 7.1 Scope of the exact identity</h2>
+<p><em>Scope echo of CL-P3-06 and CL-P4-07/08 — no new CL-ID; the scope clauses are hosted at full budget in Chapters 4 and 5.</em></p>
+<p>The exact finite-sample identity holds at the <strong>unit-weight boundary</strong> over the matched equicorrelation family <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>. This is the configuration, with both the unit-level likelihood weight and the random-effect (group) prior weight set to one, at which a posterior affinely recolored by the marginal RVE sandwich attains an exact, finite-sample equality between the calibrated posterior’s covariance and the named CR2/RVE sandwich target. That boundary is an <strong>exact theoretical result and an original contribution</strong>, not a restriction imposed for tractability (established in a companion manuscript, Theorems 1–2 and Corollary 1, for the unit-weight bridge, the marginal fixed-effect sandwich target, and the center-preserving recoloring; and a companion technical report, Theorem 2, for the exact covariance-matching mechanics, cited motivationally). The exactness is distinct in kind from the asymptotic Williams and Savitsky survey mechanism that motivates it. That mechanism is large-sample; the unit-weight identity is an original finite-sample result.</p>
+<p>The scope of that exactness is the matched equicorrelation family, with arbitrary per-cluster scale <span class="math inline">\(a_j &gt; 0\)</span>, not arbitrary SPD within-study covariance. The conditional bridge (companion manuscript, Theorem 1) is proven over the compound-symmetric class <span class="math inline">\(V_j = a_j C_j(\rho)\)</span>; nonuniform weights and arbitrary heteroscedastic or SPD within-study covariance are <strong>scoped-out future extensions</strong>, named openly, not hidden constraints (G-17). Naming this scope precisely keeps the result from inviting the “real sampling variances are heteroscedastic” objection: the equicorrelation family is the reporting scope at which the stated theorem holds, and the fixed-<span class="math inline">\(\rho\)</span> specification is a working-model choice, not the logical site where exactness arises.</p>
+<p>The marginal result is <strong>strictly more general</strong> than the conditional one, and the two scopes are not flattened (G-18). The companion manuscript’s marginal fixed-effect sandwich identity (Theorem 2) establishes that, under unit weights and the matched translation, the meta-analytic and survey interpretations share the same marginal fixed-effect sandwich target after the random intercepts <span class="math inline">\(\theta_j\)</span> are integrated out. Because it rests only on equality of matched marginal Gaussian densities with no compound-symmetric requirement, the marginal identity dominates the conditional/equicorrelation bridge in generality rather than sharing its scope. The asymmetry is the precise statement: the equicorrelation scope governs the conditional bridge, while the marginal identity reaches any matched marginal Gaussian kernel. Read together, these are not two limitations but two exact results at two clearly marked scopes: the coordinates of the contribution, stated as preconditions.</p>
+</section>
+<section id="sec-conditional-and-coverage" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-conditional-and-coverage"><span class="header-section-number">7.2</span> 7.2 Conditional on <span class="math inline">\(\omega^2\)</span>; covariance-matching is not coverage; the multivariate question open</h2>
+<p><em>Scope echo of CL-P4-09/10 — no new CL-ID; the scope clauses are hosted at full budget in Chapter 5.</em></p>
+<p>The matching results are <strong>conditional on the plug-in <span class="math inline">\(\omega^2\)</span></strong> and the within-study correlation. The identity-under-correct-specification result makes the conditionality concrete: when the MCMC posterior covariance already equals the target covariance, the correction is the <strong>identity transformation</strong>, neutral when the working model is right (a companion technical report, Theorem 3). The reach of that neutrality is bounded by its condition. If <span class="math inline">\(\omega^2\)</span> is badly misspecified, the <strong>target itself</strong> is wrong, and this review claims <strong>no data-driven self-correction</strong> for a misspecified <span class="math inline">\(\omega^2\)</span> (G-12). This is the honest precondition of any plug-in calibration: the correction realigns the posterior toward a named target; it does not certify the target was correctly specified. Naming it keeps the contribution exact rather than overstated.</p>
+<p>The most consequential separation in this book is between two different <em>kinds</em> of claim, and the boundary holds them apart in <strong>separate sentences</strong> (G-09). Covariance-matching, as established by the three CCC results, is an <strong>exact finite-sample algebraic property</strong> of the calibrated posterior’s covariance relative to the named CR2/RVE sandwich target. Coverage is a <strong>separate operating characteristic</strong>: it is <strong>asymptotic in <span class="math inline">\(J\)</span></strong> and demonstrated <strong>only by simulation</strong> under specified data-generating processes, where the calibrated intervals are <strong>near nominal</strong>. The two claims are distinct. Exact algebraic matching does not by itself imply nominal interval coverage, and the one is never read into the other. The simulation evidence is <strong>proof-of-concept under the conditions studied</strong>, intercept-only, not universal (G-13); no specific coverage percentage is asserted, only the qualitative “near nominal.” The boundary frames a research agenda: <strong>multivariate coefficient-level operating characteristics</strong> (how the calibrated intervals behave for a full vector of meta-regression coefficients) are an open question this review does <strong>not pre-resolve</strong>. The exact matching is established at the stated scope today; the operating characteristics beyond the intercept-only regime are the next thing to demonstrate, named as open rather than quietly assumed.</p>
+</section>
+<section id="sec-der-paper-c" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-der-paper-c"><span class="header-section-number">7.3</span> 7.3 The per-coefficient DER: motivated here, developed in a forthcoming companion paper</h2>
+<p><em>Scope echo of CL-P4-04/05 — no new CL-ID; the scope clauses are hosted at full budget in Chapter 5.</em></p>
+<p>The final boundary is a hand-off, and it points forward to a developed contribution rather than to an absence. The per-coefficient <strong>design-effect-ratio (DER)</strong> diagnostic — which identifies <em>which</em> coefficients require variance correction and thereby enables selective, predictor-specific correction rather than the all-or-nothing application the frequentist sandwich provides — is established only at <strong>survey scope</strong> by Lee <span class="citation" data-cites="lee2026c">(<a href="references.html#ref-lee2026c" role="doc-biblioref">2026, p. arXiv:2603.07791</a>)</span>, who contrasts the MCMC posterior variance against a design-corrected sandwich target and performs no meta-analysis. The contrast is a design-class difference, framed neutrally, not a deficiency of the frequentist standard, and it is motivated here, not delivered here (G-22). The diagnostic is not absent from the present program: current <code>bayesRVE</code> outputs already include scoped DER-adjacent quantities (<code>DER_mu</code>, the <span class="math inline">\(\theta\)</span> summaries, the CCC scale factors <code>r_k</code>, and the CHE-diagonal <code>DER_emp</code>). These existing outputs are <strong>narrower</strong> than the full workflow, not a placeholder for it: the complete contrast-level/default reporting workflow for meta-analytic dependent effects (the MCMC-versus-CCC comparison for pre-specified contrasts with named variance targets that would operationalize selective correction across a coefficient vector) is <strong>the scope of a forthcoming companion paper</strong>. This review motivates the diagnostic from its Bayesian survey-scope origin and points to that work; it does not pre-empt it.</p>
+<p>With these three coordinates fixed, the funnel closes affirmatively. The boundaries are not concessions subtracted from the contribution; they are its exact coordinates. The frequentist RVE lineage fixed the marginal RVE/CHE sandwich covariance as the target (Pillar 1); the Bayesian literature left it unoccupied as a named posterior calibration object (Pillar 2); the calibrated-Bayes principle of Little and Rubin supplied the license to import it (Pillar 3); and CCC delivers the join, implementing the Williams and Savitsky Cholesky mechanism under that license to match the named CR2/RVE sandwich covariance exactly in finite samples at the unit-weight boundary over the matched equicorrelation family (Pillar 4). Coverage remains throughout a separate operating characteristic, asymptotic in <span class="math inline">\(J\)</span> and simulation-shown, never inferred from the matching identity; and the full contrast-level per-coefficient diagnostic workflow is motivated here and developed in a forthcoming companion paper. The contribution stands exactly where its boundaries place it.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-lee2026c" class="csl-entry" role="listitem">
+Lee, J. (2026). <em>Design effect ratios for <span>Bayesian</span> survey models: <span>A</span> diagnostic framework for identifying survey-sensitive parameters</em>. arXiv. <a href="https://doi.org/10.48550/arXiv.2603.07791">https://doi.org/10.48550/arXiv.2603.07791</a>
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./06-gap-and-contribution.html" class="pagination-link" aria-label="The gap, the contribution &amp; claim-type discipline">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">The gap, the contribution &amp; claim-type discipline</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
