@@ -1,0 +1,41 @@
+/* ---------------------------------------------------------------------------
+   Inline claim-type tags — e.g. (CL-P1-05, CONDITIONAL; G-04, G-14)
+   The whole parenthetical is muted (small, grey) so a first-time / flow reader
+   is not distracted; the CL-Pn-NN part is a *quiet* link to the Claim-index
+   appendix (dotted underline, inherits the muted colour, turns primary on hover).
+   The G-NN guardrail IDs are muted text only — never linked.
+--------------------------------------------------------------------------- */
+.claim-tag {
+  font-size: 0.85em;
+  color: #6c757d;
+  white-space: normal;
+}
+.claim-tag a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+.claim-tag a:hover,
+.claim-tag a:focus {
+  color: #2780e3; /* cosmo primary */
+  text-decoration-style: solid;
+}
+
+/* ---------------------------------------------------------------------------
+   Claim-index appendix (Appendix A) — a clean 2-column table:
+       Claim-ID | Statement
+   The Type / Chapter / Guardrails ride at the end of each Statement as a muted
+   parenthetical suffix (.claim-meta). Column widths come from the table's own
+   <colgroup> (Pandoc dash-proportioned ~12/88 %), which Bootstrap's cell rules
+   cannot override; table-layout:fixed honours those proportions strictly.
+--------------------------------------------------------------------------- */
+.cl-index table { table-layout: fixed; width: 100%; }
+.cl-index th, .cl-index td { vertical-align: top; }
+.cl-index td:nth-child(1) { white-space: nowrap; }  /* keep the Claim-ID link on one line */
+.cl-index td:nth-child(2) { line-height: 1.55; }    /* Statement: comfortable reading */
+
+/* the Type / Chapter / Guardrails suffix appended to each Statement — muted,
+   so it reads as secondary metadata after the statement sentence. */
+.claim-meta { font-size: 0.85em; color: #6c757d; }

@@ -1,0 +1,155 @@
+# Introduction & the inferential mismatch {#sec-introduction}
+
+::: {.callout-note collapse="true"}
+## Guardrails honored in this chapter
+
+- **G-24** — The calibrated-Bayes principle (judge a Bayesian model against
+  frequentist operating characteristics; preserve the inference center while
+  realigning covariance) is established prior art in Little (2012) and Rubin (1984);
+  only its application to the meta-analytic RVE/CHE sandwich target is this review's
+  contribution.
+- **G-23** — The "never joined" claim is a *documented systematic absence*, phrased
+  conditionally as an unoccupied conjunction; it is defended downstream, not proved
+  here.
+- **G-27** — "Never joined" means the *conjunction* of an RVE/CHE-sandwich target and
+  a Little/Rubin license is unoccupied; it is never a priority claim over any single
+  ingredient (posterior recoloring, sandwich estimation, or the calibrated-Bayes
+  principle), each of which exists in print.
+:::
+
+Defining a Bayesian robust variance estimator for dependent-effect meta-analysis is
+the work of three literatures, not one. This chapter names the three literatures, the
+join this review proposes between them, and the roadmap of the funnel the
+rest of the book descends. The object the funnel tracks — the marginal RVE/CHE
+sandwich covariance — is introduced here and never leaves: every chapter hands the
+same target to the next.
+
+## 1.1 The three-literatures mismatch {#sec-three-literatures}
+
+The problem this book addresses is an inferential mismatch. Defining such an estimator
+is the work of three literatures rather than one, each supplying one necessary but
+individually insufficient component [([CL-P0-01](98-appendix-claim-index.qmd#cl-p0-01), HEURISTIC; G-24)]{.claim-tag}. Naming the mismatch first, rather than any one
+field, matters because the contribution is a join across fields rather than an
+improvement within one, and the join is invisible until all three components are named
+together.
+
+The first component is **robust cluster-sandwich estimation**, originating with
+@hedges2010. This lineage fixes the *target*: it points a cluster-robust sandwich at
+the marginal covariance of a dependent effect-size vector through a working model
+(aggregated or correlated-effects) that may misspecify the within-study correlation,
+and it secures consistency in the number of studies without requiring the true
+within-study correlation to be known. The marginal RVE/CHE sandwich covariance is the
+object this literature owns, and the object the other two literatures will be
+asked to host. What this literature does not supply is a posterior: it furnishes a
+covariance target and an estimator for it, not a Bayesian inferential machine.
+
+The second component is the **Bayesian hierarchical and multilevel meta-analysis**
+apparatus. This tradition supplies the *modeling machinery*: weakly informative
+heterogeneity priors, observation-level random effects, multivariate and three-level
+structures, and the posterior as the primary inferential object. Its strength is
+expressiveness: it can represent within- and between-study dependence hierarchically
+and preserve observation-level design matrices. What it does not, on its own, supply
+is a *named covariance target*. Because the Bayesian analyst keeps the posterior as
+the primary object, a frequentist sandwich covariance is not a standard reporting
+quantity in this literature; the modeling apparatus is present, but the target the
+first literature owns is not among its objectives.
+
+The third component is the **calibrated-Bayes philosophy** of @little2012 and
+@rubin1984. Here a Bayesian model is judged against frequentist operating
+characteristics, and the governing move is to preserve the inference center while
+realigning the covariance toward a frequentist operating-characteristic target. These
+two works establish the principle as standing prior art. This literature supplies the
+*license* (the warrant for importing a frequentist covariance target into Bayesian
+inference), but it is a general principle rather than a meta-analytic method, and it
+points at no particular target and no particular application. Crediting the principle to
+Little and Rubin is a binding discipline (G-24): this review invents neither
+calibrated Bayes nor the idea of preserving the center while realigning covariance;
+only the application of that principle to the meta-analytic sandwich target is novel
+here.
+
+Each component is necessary, and none suffices alone. The first owns a covariance
+target but offers no posterior; the second owns a posterior but names no covariance
+target; the third owns the license that would authorize importing the one into the
+other, yet it is prior art that has not been aimed at the target. The mismatch is
+therefore structural rather than a matter of any field's deficiency: three mature
+literatures supply three parts of a single inferential object, and that object is
+well-defined only when the parts are assembled at the point where they meet, the
+covariance.
+
+## 1.2 The join this review proposes {#sec-the-join}
+
+This review's move is to perform that assembly explicitly, carrying the marginal
+RVE/CHE sandwich covariance as the object held across all three literatures. The
+frequentist RVE lineage, from @hedges2010 through @pustejovsky2024, made the robust
+cluster-sandwich the structural standard for dependent-effect meta-analysis, fixing
+the marginal RVE/CHE sandwich covariance as the target any analogue would have to
+match; calibrated-Bayes theory [@little2012; @rubin1984] supplies the
+intellectual license to import that same sandwich covariance into Bayesian inference
+as an explicit calibration target [([CL-P0-02](98-appendix-claim-index.qmd#cl-p0-02), POSITIONING; G-23, G-24, G-27)]{.claim-tag}. The two
+streams are real and independently established: the sandwich-as-standard clause is
+anchored at its origin in Hedges, Tipton and Johnson (2010) and capped by Pustejovsky
+and Chen (2024), while the license clause rests on Little and Rubin in the survey and
+official-statistics context where those authors worked. Stated as a movement of one
+object, the proposal is to take the covariance target the frequentist lineage
+already owns and, under the calibrated-Bayes license, adopt it as the object a
+Bayesian posterior is calibrated to match, preserving the posterior mean while
+realigning its covariance toward that target.
+
+This conjunction has not been occupied, and the claim that it has not is made here
+conditionally and defended downstream. Across a broad survey of Bayesian
+meta-analysis, these three literatures have not been joined at the relevant point:
+no published meta-analysis has pointed the calibrated-Bayes principle at the marginal
+RVE/CHE sandwich covariance as an explicit calibration target. The wording governs
+the whole book. The conjunction is *unoccupied*, not
+*unattainable*: each ingredient already exists in print (posterior recoloring toward
+some sandwich, robust sandwich estimation, and the calibrated-Bayes principle have
+each been used somewhere), and this review claims no priority over any single one
+(G-27). Both qualifiers are retained, the RVE/CHE sandwich *target* and the
+Little/Rubin *license*, so that near-neighbors which recolor toward a different
+sandwich under a different license are not miscounted as occupants. The assertion
+rests on a documented systematic search, its strength equals the breadth of that
+search, and it is never escalated to a proof that no such method could exist (G-23).
+The verbatim negative-existence statement is therefore deferred: it is asserted once,
+with its full search breadth, where the Bayesian gap is established (Chapter 3), and
+restated as positioning where the contribution is assembled (Chapter 6). Here the
+claim is only that the conjunction is open and that this review proposes to occupy it.
+
+The absence admits a non-pejorative reading. It reflects no deficiency in the Bayesian
+apparatus, only that a posterior calibrated to a marginal RVE/CHE sandwich covariance
+has not been a standard object in this literature. What is missing is not Bayesian
+capacity but the application of an established license to an established target. The
+principle that licenses the occupation remains Little's and Rubin's; the survey-to-Bayes
+mechanism this review later adapts remains Williams and Savitsky's; what is new is the
+application: pointing an established principle, through an adapted mechanism, at a
+target the frequentist literature already owns (G-24).
+
+## 1.3 Roadmap of the funnel {#sec-roadmap}
+
+The rest of the book is one descent, tracking the marginal RVE/CHE sandwich covariance
+through the three literatures in four beats.
+
+- **P1 — RVE owns it (Ch. 2).** The frequentist RVE lineage fixed the marginal
+  sandwich covariance as the estimand, disciplined the small-sample regime with named
+  corrections, and shipped the canonical software. This chapter establishes the target
+  the rest of the funnel must match.
+- **P2 — Bayesian meta-analysis lacks it (Ch. 3).** The Bayesian tradition arrives at
+  that target with ample modeling capacity and no analogue. This chapter documents the
+  gap (an absence of *application*, not of Bayesian capacity) and hosts the verbatim
+  gap statement.
+- **P3 — calibrated-Bayes permits it (Ch. 4).** The calibrated-Bayes principle supplies
+  the missing license, the Williams–Savitsky survey-to-Bayes Cholesky mechanism
+  supplies the operation, and this review names the result CCC. This chapter shows the
+  join is permitted and how it is built.
+- **P4 — CCC delivers it, with diagnostics (Ch. 5).** A specifically Bayesian RVE earns
+  its place through capabilities the frequentist sandwich does not readily afford
+  (flexible heterogeneity priors, observation-level structure, and per-coefficient
+  design-effect-ratio diagnostics), with covariance-matching and coverage held strictly
+  separate.
+
+The two unoccupied conjunctions then close affirmatively in **Ch. 6**, where the gap,
+this review's matching results, and the matching-versus-coverage distinction are
+assembled into the stated contribution and the claim-type discipline is set out as a
+reading key; **Ch. 7** bounds the contribution, framing its scope as preconditions
+rather than apologies. The first beat begins now: the next chapter develops only the
+first conjunct, namely what that owned frequentist standard is and what covariance it
+targets.

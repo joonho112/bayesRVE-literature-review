@@ -1,0 +1,69 @@
+# Preface {.unnumbered}
+
+This book positions and motivates **Cholesky Calibration Correction (CCC)**, a
+Bayesian calibration method for meta-analysis with dependent effect sizes. It is a
+claim-anchored literature review: it assembles the case *for* CCC by tracing one
+object through three literatures, and it does not re-derive the method. The formal
+results live in companion manuscripts (in preparation), cited here
+only as motivation. CCC is an original coinage for the
+meta-analytic operationalization of the Cholesky scale-and-shape projection
+mechanism of Williams and Savitsky; the mechanism is theirs, while the name and the
+meta-analytic instantiation are original contributions (G-06). The intended reader is a
+methodologist who already works with random-effects and multilevel meta-analysis
+and recognizes robust variance estimation (RVE) as the frequentist standard for
+dependent effects.
+
+**The funnel, in one paragraph.** The single object the book tracks is the
+*marginal RVE/CHE sandwich covariance* — the covariance target that frequentist
+robust variance estimation fixes for dependent-effect meta-analysis. The argument
+descends in four beats. The frequentist RVE lineage, from Hedges, Tipton and
+Johnson (2010) through Pustejovsky and Chen (2024), made the robust cluster-sandwich
+the structural standard and so *owns* that target (P1). The Bayesian hierarchical and
+multilevel meta-analysis tradition has the modeling apparatus to host a posterior
+but has not adopted that covariance as a calibration target, so it *lacks* the join
+(P2). The calibrated-Bayes philosophy of Little (2012) and Rubin (1984), which judges a
+Bayesian model against frequentist operating characteristics, preserving the
+inference center while realigning covariance, supplies the license that *permits*
+importing the target (P3). CCC *delivers* the join, matching the named marginal
+RVE/CHE sandwich covariance exactly in finite samples at the unit-weight boundary,
+with predictor-specific diagnostics motivated for downstream work (P4).
+
+**How to read it (HTML-first).** The book renders as a navigable HTML Quarto Book,
+built to be moved through rather than read front-to-back. Seven chapters carry the
+funnel, with a structured literature-database appendix beneath them:
+
+- **Ch. 1 — Introduction & the inferential mismatch:** the three literatures and the
+  join this review proposes.
+- **Ch. 2 — The frequentist RVE lineage owns it (P1).**
+- **Ch. 3 — Bayesian meta-analysis & the missing analogue (P2).**
+- **Ch. 4 — The calibrated-Bayes lens (P3).**
+- **Ch. 5 — Why Bayesian RVE specifically (P4).**
+- **Ch. 6 — The gap, the contribution & claim-type discipline.**
+- **Ch. 7 — Boundaries & open questions.**
+- **Appendix — the literature database** and pillar-by-theme coverage map.
+
+Use the sidebar to move between chapters, the in-page table of contents to move
+within one, the search box to find a method or author, and the clickable DOIs to
+reach every cited source. Cross-references between chapters are live links, so a
+reader can follow one claim across the funnel without losing place.
+
+**Standing disciplines.** Three conventions run through every chapter and serve as a
+reading key. First, *name the covariance target every time*: wherever the text
+touches a sandwich or a calibration, it names the specific object, the marginal
+RVE/CHE sandwich covariance, so that frequentist and Bayesian idioms never blur.
+Second, *claim-typing*: each load-bearing claim is tagged inline with its identifier
+and type (THEOREM, CONDITIONAL, EMPIRICAL, HEURISTIC, GAP-ASSERTION, or POSITIONING),
+which fixes the evidence the claim is entitled to and lets a reader see at a glance
+what stands behind a sentence. Third, *covariance-matching is
+not coverage* (G-09): matching is an exact, finite-sample, algebraic property of the
+calibrated posterior's covariance relative to the named target, whereas coverage is a
+separate operating characteristic, asymptotic in the number of studies and shown by
+simulation; the two are held in separate sentences and never conflated. One further
+book-level discipline applies: the gap the book documents is a *documented
+systematic absence* (G-23), phrased as an unoccupied conjunction rather than a proof
+that no such method could exist. The book **motivates** CCC; it does not **re-prove**
+it.
+
+The funnel that follows tracks the object through these literatures in four beats:
+RVE owns it, Bayesian meta-analysis lacks it, calibrated-Bayes permits it, and CCC
+delivers it, with diagnostics.

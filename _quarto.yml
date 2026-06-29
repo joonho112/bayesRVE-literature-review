@@ -1,0 +1,35 @@
+project:
+  type: book
+  output-dir: _book
+
+# Quarto book configuration.
+book:
+  title: "A Literature Review of Robust Variance Estimation for Bayesian Meta-Analysis with Dependent Effect Sizes"
+  subtitle: "The case for Cholesky Calibration Correction (CCC)"
+  author: "JoonHo Lee (jlee296@ua.edu)"
+  date: "2026-06-27"
+  search: true
+  chapters:
+    - index.qmd                    # Preface
+    - 01-introduction.qmd          # Ch1  P0  introduction & the inferential mismatch
+    - 02-rve-lineage.qmd           # Ch2  P1  the frequentist RVE lineage owns it
+    - 03-bayesian-gap.qmd          # Ch3  P2  Bayesian meta & the missing analogue
+    - 04-calibrated-bayes.qmd      # Ch4  P3  the calibrated-Bayes lens
+    - 05-why-bayesian-rve.qmd      # Ch5  P4  why Bayesian RVE specifically
+    - 06-gap-and-contribution.qmd  # Ch6      the gap, the contribution, claim-type discipline
+    - 07-boundaries.qmd            # Ch7      boundaries & open questions
+    - references.qmd               #          references (one-line stub Quarto populates)
+  appendices:
+    - 98-appendix-claim-index.qmd  #          claim index (37 CL-IDs) — link target for inline claim-type tags
+    - 99-appendix-database.qmd     #          literature database + pillar×theme (T1–T11) map
+
+bibliography: references.bib
+csl: apa.csl
+
+format:
+  html:                             # HTML-only
+    theme: cosmo
+    css: custom.css                 # muted styling for the inline claim-type tags
+    toc: true
+    toc-depth: 3
+    number-sections: true

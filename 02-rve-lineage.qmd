@@ -1,0 +1,324 @@
+# The frequentist RVE lineage owns it {#sec-rve-lineage}
+
+::: {.callout-note collapse="true"}
+## Guardrails honored in this chapter
+
+- **G-15** — RVE is asymptotically consistent in *m* (the number of studies), not
+  *k* (the number of effect sizes); in small-*m* meta-analysis (especially *m* < 8)
+  Type I error inflates unless a **named** small-sample correction (HTZ, AHZ, CWB, or
+  CR2) is applied. This chapter never asserts that uncorrected RVE controls Type I
+  error in the small-*m* regime; every adequacy claim names its correction in the same
+  sentence — the spine guard of the chapter.
+- **G-03** — Pustejovsky and Chen (2024, Theorem 2) proved the aggregated and
+  correlated-effects likelihoods *proportional* — equal up to a parameter-free constant
+  κ — never identical; exact identity is reserved downstream for this review's own
+  unit-weight-boundary result and is never read into the field's proportionality result.
+- **G-04 / G-14** — CR2 (Bell–McCaffrey) is a *design-specific* comparator: it improves
+  coverage on balanced designs but degrades under severe imbalance or skewed regressors,
+  and its equality conditions hold only under compound-symmetric within-subgroup blocks
+  and constant subgroup size; it is never universal, never covers all designs, and is
+  never the calibration target.
+
+This chapter also carries forward **G-05** (when moderators vary within study it is the
+*aggregated* representation that ceases to exist, never the correlated-effects model)
+and **G-25** (the Godambe / estimating-equation substrate *motivates* the need for a
+correction; it does not supply one).
+:::
+
+This chapter establishes the first leg of the funnel: the marginal RVE/CHE sandwich
+covariance that any Bayesian analogue must match is a *settled, owned* frequentist
+standard. It is owned not by a single paper but by a lineage: one apparatus that
+matured, link by link, from Hedges, Tipton and Johnson's origin through Tipton's
+small-sample discipline and Pustejovsky and Tipton's working-model consolidation to
+Pustejovsky and Chen's integrative capstone. The chronology carries the argument. Each link *extends rather than displaces* the one before it, so that what
+arrives at the end is the completion of a single standard rather than a competing estimator.
+The object that lineage owns is a specific covariance estimand, the marginal RVE/CHE
+sandwich covariance of the effect-size vector, and the conditions under which each of
+its properties holds are stated with care below, because it is that estimand,
+with those conditions, that any Bayesian analogue must measure itself against.
+The seven sections trace that maturation: what the lineage made the field-default, what
+its sandwich targets, why the target is robust, how it disciplined the small-sample
+regime, why CR2 is a comparator and not the target, which working model survives where
+the other breaks, and the degrees-of-freedom tuning and canonical software that
+instantiate the whole apparatus. This chapter renders the standard; it does not re-prove
+it.
+
+## 2.1 The established field-default {#sec-field-default}
+
+Robust variance estimation is the established frequentist field-default for
+meta-analysis with dependent effect sizes, built from the cluster-sandwich and refined
+across the lineage from Hedges, Tipton and Johnson [-@hedges2010] through Tipton
+[-@tipton2015a; -@tipton2015b], Pustejovsky and Tipton [-@pustejovsky2022], to
+Pustejovsky and Chen [-@pustejovsky2024]; its field-default status is documented both in
+the methodological lineage and in the practitioner-tutorial literature
+[@tannersmith2016] [([CL-P1-01](98-appendix-claim-index.qmd#cl-p1-01), POSITIONING)]{.claim-tag}. This is a framing claim about the structure
+of the frequentist literature, not a program theorem: the status is carried as
+POSITIONING, and the origin paper's own theorem is held at the field level, never
+re-elevated.
+
+@hedges2010 is the origin: it establishes the
+cluster-sandwich as the frequentist apparatus for dependent-effect meta-regression,
+furnishing both a correlated/observation-level working model and the cluster-level
+residual-cross-product sandwich that estimates the marginal covariance of the
+effect-size vector. Tipton then disciplined the small-sample regime that the origin
+result left asymptotic [@tipton2015a] and extended the standard to multiple-contrast
+tests [@tipton2015b], each move *extending* rather than overturning Hedges, Tipton and
+Johnson. Pustejovsky and Tipton [-@pustejovsky2022] consolidated the working-model
+choices — correlated-effects, hierarchical-effects, and their combination — into a single
+deployable framework, and Pustejovsky and Chen [-@pustejovsky2024] integrated the
+apparatus into one treatment of aggregated and correlated-effects representations,
+supplying the analytic equivalence and design-class results this chapter leans on. The
+status is documented from two directions at once. The methodological lineage names and
+extends the chain: the more recent multivariate and cross-domain entries
+[@chen2025; @welz2023; @yang2024] inherit the same sandwich without overturning it, and
+Pustejovsky [-@pustejovsky2025] names the same lineage as the "well-developed and readily
+available" robustness strand for dependent effects. From the other direction, the
+practitioner tutorials [@tannersmith2014; @tannersmith2016] and applied syntheses
+[@gnambs2023; @cameron2015] document cross-disciplinary adoption across education,
+psychology, health, and the microeconometric clustering literature from which the
+cluster-sandwich also descends, and the canonical software lineage
+[@joshi2022; @fernandezcastilla2026; @williams2025a] carries it into routine use.
+
+The field-default claim is made honestly, with its adoption qualifier intact and stated
+as a precondition rather than a concession. Tipton, Pustejovsky and Ahmadi [-@tipton2019] record
+that RVE was endorsed in principle among the consensus-recommended modeling alternatives
+for dependent effects, yet appeared in only about five percent of syntheses as of 2016.
+"Field-default" therefore denotes methodological consensus and emerging adoption (the
+standard the field recognizes as correct for dependent effects, the one the methods
+literature converged on and the tutorials teach) rather than universal practitioner
+uptake. The qualifier sharpens the lineage claim rather than weakening it. The review
+measures a Bayesian analogue against the *estimand* this lineage fixed, an object whose
+authority rests on the lineage's structural coherence, not on a head-count of applied
+syntheses.
+
+## 2.2 What the sandwich targets {#sec-what-targets}
+
+The lineage having fixed *which* apparatus is standard, the next link fixes *what* that
+apparatus targets. The RVE sandwich targets the marginal covariance of the effect-size
+vector through a working model — aggregated or correlated-effects — that may misspecify
+the within-study correlation, and is asymptotically consistent in *m*, the number of
+studies, without requiring the true within-study correlation to be known [([CL-P1-02](98-appendix-claim-index.qmd#cl-p1-02),
+CONDITIONAL; G-03, G-15)]{.claim-tag}. Pustejovsky and Chen [-@pustejovsky2024] state the property
+directly: the sandwich does not rely on the assumed dependence structure being correctly
+specified, and it requires a large number of independent clusters. The covariance the
+sandwich estimates is the *marginal* covariance — the object that survives integrating
+over whatever within-study correlation the working model posits — and naming it as
+marginal is a standing discipline of this book. Two preconditions on that consistency are
+load-bearing and must be kept distinct.
+
+The consistency runs in *m* (studies), not in *k* (effect sizes). The estimand is
+a marginal covariance estimated from cluster-level residual cross-products, and the origin
+result is explicitly contingent on regularity conditions that bite only as the number of
+independent studies grows [@hedges2010; @pustejovsky2022]. A synthesis with twelve studies
+reporting ten effects each has *k* = 120 rows in its data frame but *m* = 12 independent
+clusters; it is the twelve that the asymptotics count. The cross-domain analogues confirm
+the same direction under the clusters↔studies mapping: econometric clustering theory makes
+consistency contingent on the number of clusters diverging, not the number of observations
+[@cameron2015], and the survey design-based sandwich is consistent in the survey
+central-limit sense, in the number of sampled units [@binder1983], with clusters and strata
+playing the role of studies, never effect sizes. Eliding *m* into *k* would misstate the
+asymptotic regime, and it is precisely the regime where the small-*m* discipline of §2.4
+becomes binding (G-15).
+
+What Pustejovsky and Chen establish about the two working-model
+likelihoods is a proportionality, not an identity. Their Theorem 2 shows the aggregated
+and correlated-effects likelihoods are *proportional — equal up to a parameter-free
+constant κ*, and not identical (G-03). The distinction is load-bearing for the
+entire book: proportionality up to a constant suffices for the maximizing arguments and
+the sandwich target to agree, which is what licenses moving between the two
+representations, but it is strictly weaker than a likelihood identity. Exact identity is a
+separate, stronger statement reserved downstream for this review's own unit-weight-boundary
+result; it must never be read back into the field's proportionality theorem. The
+cross-domain analogues confirm the weaker, correct reading: econometric clustering
+[@cameron2015] and survey design-based estimation [@binder1983] each affirm consistency in
+the number of clusters, and neither asserts a likelihood identity. What the sandwich
+targets, then, is a single marginal covariance, reached through either of two
+proportionally related working models, consistent as studies accumulate.
+
+## 2.3 Why the sandwich is robust {#sec-why-robust}
+
+Why the marginal sandwich is robust is the link that explains why the lineage's target is
+worth calibrating to at all. The sandwich estimator remains consistent under essentially
+arbitrary misspecification of the within-study correlation structure (which is almost
+never known in meta-analytic practice), provided the working model's marginal moments are
+calibrated to the data-generating process [@hong2018; @cameron2015; @pustejovsky2022]
+[([CL-P1-03](98-appendix-claim-index.qmd#cl-p1-03), CONDITIONAL; G-25)]{.claim-tag}. This is the sandwich's central virtue: its validity does
+not turn on getting the dependence structure right, only on the marginal moments being
+approximately correct. @hong2018 states the rationale plainly: the estimator is
+asymptotically correct even when the working likelihood is incorrect, and the
+consolidating lineage [@pustejovsky2022] carries it as an asymptotic-in-*m* property of the
+field. The robustness is asymptotic and conditional on calibrated marginal moments; it is
+not unconditional, and the prose states the condition with the claim.
+
+The deeper rationale is supplied by the estimating-equation and Godambe-information
+machinery, of which the design-based sandwich of @binder1983 is the survey-side origin.
+That substrate gives the asymptotic justification for why covariance recalibration under
+working-model misspecification is *principled* rather than ad hoc: when an estimator solves
+an estimating equation whose score is correct in expectation, its sampling covariance takes
+the Godambe sandwich form regardless of whether the full working likelihood is correct,
+given correctly specified low-order margins. This is the precise sense in which the
+substrate *motivates the need* for a correction — it establishes that a marginal covariance
+target is well-defined and that realigning toward it is licensed by estimating-equation
+theory — without itself *supplying* a finite-sample correction (G-25). The literature
+carries it as motivation, never as proof that a finite-sample correction already exists
+[@joshi2022]. This misspecification-robustness, asymptotic, conditional, and principled,
+is what makes the marginal sandwich covariance an attractive calibration target for
+a Bayesian analogue: it is the covariance an estimating-equation argument says inference
+*should* report under misspecification. It is cited here as why-recalibration-is-needed
+framing, the hinge the calibrated-Bayes pillar (P3) later inherits, not as evidence
+the correction has already been built.
+
+## 2.4 The small-*m* discipline {#sec-small-m}
+
+The robustness of §2.3 is asymptotic, and the asymptotics bite slowly, which is why the
+lineage's most consequential refinement was the small-sample discipline. In small-*m*
+meta-analysis, especially *m* below eight, RVE inflates Type I error unless a named
+small-sample correction is applied: HTZ, AHZ, CWB, or CR2 (Bell–McCaffrey; @imbens2016);
+uncorrected RVE does not control Type I error when studies are few [([CL-P1-04](98-appendix-claim-index.qmd#cl-p1-04), EMPIRICAL;
+G-15)]{.claim-tag}. This is the chapter's spine guard, and it is stated qualitatively by discipline:
+uncorrected small-*m* RVE *over-rejects*, and level control *recovers only after a named
+correction*. No bare coverage percentage is asserted, and no sentence claims small-*m*
+adequacy without naming the specific adjustment that delivers it.
+
+@tipton2015a is the primary named source. Tipton showed by simulation that uncorrected
+robust inference over-rejects badly in small-*m* meta-regression and that level control
+recovers only via the bias-reduced residual corrections together with Satterthwaite degrees
+of freedom — the named HTZ-type adjustment. Each subsequent link in the lineage named its
+own correction, again *extending* the discipline rather than replacing it. @tipton2015b
+extended it to multiple-contrast tests with the AHZ correction, showing uncorrected
+multiple-contrast RVE liberal even at large *m*. @joshi2022 carried the cluster wild
+bootstrap (CWB) as a named small-*m* alternative, directly stating that small-*m* RVE
+inflates Type I error and is controlled only through a named correction. @yang2024 confirmed
+that the bare cluster-robust estimator is downwardly biased and fails Type I control unless
+the number of independent studies is large or a named correction is applied. Beneath this
+meta-analytic lineage sits its methodological origin: @bell2002 derived the bias-reduced
+linearization later named CR2 and showed by simulation that uncorrected small-sample
+linearization inflates Type I error, and @pustejovsky2018 implemented CR2 with
+Satterthwaite/AHT degrees of freedom and documented the over-rejection of the uncorrected
+Wald test.
+
+The same discipline is corroborated, in its own idiom, by adjacent settings, and the
+boundary between the four endorsed corrections and these analogues is held explicit. The
+econometric clustering literature from which the cluster-sandwich descends finds that
+few-cluster Wald tests over-reject unless a named correction — the cluster jackknife CV3
+with a *t*(G−1) reference [@mackinnon2023a; @mackinnon2025] or the Bell–McCaffrey
+degrees-of-freedom adjustment [@cameron2015] — is applied; small-*k* scalar-summary intervals
+undercover unless an adjusted reference distribution is used [@zejnullahi2024]; the
+general-meta-analytic precursor literature on liberal small-sample tests names its own
+remedy, the Hartung *q*-variance estimator with a *t* reference [@hartung2001]; and the
+multilevel literature warns that ignoring the within-study sampling covariance underestimates
+standard errors and inflates Type I error [@vandennoortgate2015]. These cross-domain
+corrections are corroboration that the small-sample failure and its named remedies are
+general; the CV3 jackknife and the *t*(G−1) reference in particular are kept clearly labeled
+as econometric analogues, not as one of the four meta-analytic corrections the review endorses
+under G-15. What a working meta-analyst must take from this section is a rule, not a number:
+in the small-*m* regime, RVE adequacy is a claim about RVE-plus-a-named-correction, never
+about bare RVE. An adequacy claim that does not name its correction is not a claim the test supports.
+
+## 2.5 CR2 is a comparator, not the target {#sec-cr2-comparator}
+
+Among the named corrections, CR2 warrants particular care, because it is the comparator most
+easily mistaken for a universal fix. The CR2 correction (Bell–McCaffrey; @imbens2016) improves
+coverage on balanced designs but degrades under severe imbalance or skewed regressors, and its
+compound-symmetric and constant-subgroup-size conditions are not always met [([CL-P1-05](98-appendix-claim-index.qmd#cl-p1-05),
+CONDITIONAL; G-04, G-14)]{.claim-tag}. Even at its canonical development the correction is not universal:
+@imbens2016 show that Bell–McCaffrey is nearly inert on balanced designs, helps most under skew
+or imbalance, yet itself undercovers under skewed *errors* at one extreme and is conservative at
+the other. The underlying bias-reduced linearization is *exactly* unbiased only under independent
+and identically distributed errors [@bell2002], so the equality it promises is a design-specific
+property, not a guarantee that holds across designs.
+
+The conditions under which CR2 achieves its equivalence are pinned by the lineage's capstone.
+Pustejovsky and Chen [-@pustejovsky2024, Theorem 3] establish that the CR2-type equivalence holds
+*only* under compound-symmetric within-subgroup blocks *and* constant subgroup size — conditions
+the paper characterizes as more restrictive and artificial, and which fail in Pustejovsky and
+Chen's own worked examples (G-04). Where those conditions break, so does the equality. The
+degradation is documented across designs: coverage falls materially below nominal in small-*k*
+multivariate meta-regression [@welz2023], and most starkly in crossed phylogenetic designs, where
+CR2 is inapplicable and cluster-robust inference falls below nominal regardless [@williams2025a].
+Because CR2's accuracy is contingent on design balance, it cannot serve as ground truth; the prose
+never describes it as universal, as covering all designs, or as eliminating Type I error (G-14).
+CR2 is therefore a design-specific tuning and an external comparator — useful where its design
+conditions hold, degraded where they do not — never a universal fix and never the calibration
+target. This is the distinction the chapter carries forward: the object a Bayesian analogue
+must match is the marginal RVE/CHE sandwich covariance *itself*, not CR2 treated as ground truth.
+CR2 is one design-aware way the frequentist lineage approximates that covariance in finite samples;
+it is not the covariance.
+
+## 2.6 The design-class distinction {#sec-design-class}
+
+The lineage also fixes *which working model survives* when the data structure is most demanding,
+a distinction this review later inherits as the warrant for observation-level Bayesian structure.
+Dependent effects are handled by either the aggregated (one-row-per-study) or the correlated-effects
+(observation-level) working model; when moderators vary within study, the aggregated representation
+ceases to exist, whereas the correlated-effects model remains well-defined with the sandwich applied
+at the observation level [@pustejovsky2024] [([CL-P1-06](98-appendix-claim-index.qmd#cl-p1-06), CONDITIONAL; G-05)]{.claim-tag}. The mechanism is plain: the aggregated one-row-per-study representation requires
+study-level predictors, so when a moderator takes different values across the effect sizes *within*
+the same study, there is no single study-level row that can represent it, and the aggregated
+representation ceases to correspond to any model. The correlated-effects model, working at the level
+of the individual effect size, retains the full within-study design matrix and simply keeps the rows.
+
+The direction of this result is locked (G-05): it is *aggregation* that breaks,
+and the correlated-effects model that survives, never the reverse. Inverting it (claiming the
+correlated-effects model fails) would misstate the entire design-class result and quietly undercut
+the observation-level structure this review carries into its Bayesian analogue. The "ceases to exist"
+result itself is sourced uniquely to Pustejovsky and Chen [-@pustejovsky2024], the capstone of the
+lineage; the earlier links and the parallel literatures furnish the two representations and
+corroborate the direction without asserting the analytic result themselves. @hedges2010 supplies both
+the correlated/observation-level working model and the synthetic aggregated alternative but does not
+state the direction, which is Pustejovsky and Chen's contribution; and the multilevel route reaches
+the same design-class distinction from the hierarchical side, with @vandennoortgate2015 showing that
+aggregating effect sizes loses information and can make moderator estimation impossible while the
+observation-level model survives, the same direction, never inverted. For a practitioner with
+within-study moderator variation, the operational consequence is direct: the observation-level
+correlated-effects model is not merely the more flexible choice but the *only* well-defined one.
+This survival of observation-level structure is the analytic warrant for the Bayesian observation-level
+model this review carries into P4: a Bayesian analogue that operates at the observation level is
+calibrating to a target that remains well-defined precisely where the aggregated alternative cannot.
+
+## 2.7 Satterthwaite df tuning and canonical tooling {#sec-df-tooling}
+
+Operating the sandwich in finite samples requires a reference distribution, and the lineage's routine
+device for setting it is the last refinement to trace, together with the software that instantiates
+the whole apparatus. The Satterthwaite degrees-of-freedom approximation is routinely applied in
+frequentist RVE meta-regression to set the effective degrees of freedom for tests and confidence
+intervals; it is asymptotically justified but biased under severe imbalance or small *m*, becoming
+unreliable once the effective degrees of freedom fall below roughly four [@tipton2015a; @pustejovsky2018]
+[([CL-P1-07](98-appendix-claim-index.qmd#cl-p1-07), CONDITIONAL; G-15)]{.claim-tag}. Here too the chronology is one of refinement: the origin paper
+[@hedges2010] supplied only the crude *m* − *p* correction; the coefficient-by-coefficient Satterthwaite
+approximation, and the finding that the effective df are covariate-dependent and often far below *m* − 1,
+are established by @tipton2015a and @pustejovsky2018, with @joshi2022 corroborating both the routine use
+and the small-*m* below-nominal behavior. The practical rule that falls out, familiar from any
+`clubSandwich` or `robumeta` warning, is to distrust a test whose effective df drop below about
+four, because the Satterthwaite reference is no longer reliable there. This df-below-four fragility is
+exactly the kind of finite-sample imperfection in the field-default tooling whose own limits under small
+*m* and imbalance are part of the standing small-sample discipline (G-15), and it ties directly back to
+§2.4.
+
+That entire apparatus — sandwich, named corrections, Satterthwaite df — is, finally, instantiated in
+canonical software, which is what carries the standard from the methods literature into a practitioner's
+analysis [([CL-P1-08](98-appendix-claim-index.qmd#cl-p1-08), POSITIONING)]{.claim-tag}. The `clubSandwich` package (Pustejovsky and Tipton) and `robumeta`
+(Fisher and Tipton) are the canonical implementations of frequentist RVE with small-sample corrections
+(CR2, HTZ/AHZ, and Satterthwaite degrees of freedom) and the field-standard tooling for dependent-effect
+meta-analysis [@pustejovsky2018; @joshi2022; @tannersmith2016; @welz2023]. Pustejovsky and Tipton
+[-@pustejovsky2018] are the methods source that introduces and implements CR2 with AHT degrees of freedom
+in `clubSandwich`; Joshi and colleagues [-@joshi2022] and Tanner-Smith and Tipton [-@tannersmith2016] name
+and use both `clubSandwich` and `robumeta` as the standard implementations actually deployed; @welz2023
+names `clubSandwich` as the canonical software for cluster-robust estimation with small-sample
+corrections; and the field-tooling record [@tipton2019; @fernandezcastilla2026], with Pustejovsky and
+Tipton [-@pustejovsky2022], situates them in the broader practitioner ecosystem. The lineage thus closes
+the loop a practitioner cares about: a fixed estimand, a disciplined small-sample regime with named
+corrections, a monitored reference distribution, and shipped software that does all three from a single
+deployable toolchain.
+
+Taken together, CL-P1-01 through CL-P1-08 establish a complete, instantiated, software-backed standard,
+and they fix a single object: a marginal cluster-sandwich, consistent in *m* under working-model
+misspecification, robust under calibrated marginal moments, proportional-not-identical across its two
+working-model representations, requiring a named small-sample correction at low *m*, with CR2 as a
+design-specific comparator rather than the target, the aggregated representation that breaks where the
+correlated-effects model survives, the Satterthwaite tuning with its df-below-four fragility, and
+`clubSandwich` and `robumeta` as canonical tooling. This is the owned frequentist standard — one apparatus
+matured into a field-default through the lineage from Hedges, Tipton and Johnson to Pustejovsky and Chen.
+The marginal RVE/CHE sandwich covariance it targets is precisely the covariance target a Bayesian analogue
+would have to match, which is the question P2 takes up: across a broad survey of Bayesian meta-analysis,
+is there any published method that adopts this sandwich covariance as an explicit calibration target?

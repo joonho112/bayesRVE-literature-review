@@ -1,0 +1,11 @@
+# Quarto build output (publish with `quarto publish gh-pages`)
+/_book/
+/.quarto/
+*.rmarkdown
+
+# OS / editor cruft
+.DS_Store
+.Rhistory
+.Rproj.user/
+
+**/*.quarto_ipynb

@@ -1,0 +1,102 @@
+---
+title: "Appendix — Claim index (CL-IDs)"
+subtitle: "The 37 catalogued claims the review is built on · the link target for the inline claim-type tags"
+---
+
+Every load-bearing sentence in this book carries an inline claim-type tag — e.g. *(CL-P1-05, CONDITIONAL; G-04, G-14)*. The `CL-Pn-NN` part links here. This index lists the **37** catalogued claims (`CL-ID`), each with its **claim-type** (THEOREM / CONDITIONAL / EMPIRICAL / HEURISTIC / GAP-ASSERTION / POSITIONING), the **chapter** that hosts it, the **guardrails** that bind it (`G-NN`, defined in the guardrail callouts at the start of each chapter), and its **statement**. The chapter prose is the live realization of each row.
+
+::: {.callout-note appearance="simple" collapse="true"}
+## Claim-type legend
+- **THEOREM** — an exact result established in companion manuscripts, cited **motivationally only**, never re-proved in this book.
+- **GAP-ASSERTION** — a negative existence claim supported by *documented systematic absence* (an exhaustive search), never a single citation. The two load-bearing ones are CL-P2-02 and CL-P4-06.
+- **CONDITIONAL** — holds under stated conditions, bound to those conditions in the same sentence.
+- **EMPIRICAL** — supported by named data/simulation evidence.
+- **HEURISTIC** — a reasoned argument / motivation, not a proof.
+- **POSITIONING** — a framing / contribution claim, each component attributed to its owner.
+:::
+
+## P0 — Foundational / inferential mismatch {#sec-ci-p0}
+
+::: {.cl-index}
+
+| Claim-ID | Statement |
+|:----------|:------------------------------------------------------------------------------|
+| [CL-P0-01]{#cl-p0-01} | The inferential mismatch the review addresses requires bridging three distinct literatures — robust cluster-sandwich estimation (P1), Bayesian hierarchical/multilevel meta-analysis (P2), and the calibrated-Bayes philosophy of preserving the inference center while realigning covariance (P3) — each necessary but individually insufficient to define a Bayesian RVE. [(Type - HEURISTIC; Chapter - Ch1; Guardrails - G-24)]{.claim-meta} |
+| [CL-P0-02]{#cl-p0-02} | The frequentist RVE lineage made the robust sandwich the structural standard for dependent-effect meta-analysis [@hedges2010; @pustejovsky2024], and calibrated-Bayes theory [@little2012; @rubin1984] supplies the intellectual license to import the RVE/CHE sandwich covariance target into Bayesian inference — yet we found no published Bayesian meta-analysis method that joins those streams in the G-27 sense. [(Type - POSITIONING; Chapter - Ch1; Guardrails - G-23, G-24, G-27)]{.claim-meta} |
+
+:::
+
+## P1 — The frequentist RVE lineage owns it {#sec-ci-p1}
+
+::: {.cl-index}
+
+| Claim-ID | Statement |
+|:----------|:------------------------------------------------------------------------------|
+| [CL-P1-01]{#cl-p1-01} | Robust variance estimation (RVE) is the established frequentist field-default for meta-analysis with dependent effect sizes, built from the cluster-sandwich and refined across the lineage @hedges2010 → @tipton2015a → @tipton2015b → [@pustejovsky2018; @pustejovsky2022] → @pustejovsky2024. [(Type - POSITIONING; Chapter - Ch2; Guardrails - —)]{.claim-meta} |
+| [CL-P1-02]{#cl-p1-02} | The RVE sandwich targets the marginal covariance of the effect-size vector via a working model (aggregated or correlated-effects) that may misspecify the within-study correlation, and is asymptotically consistent in *m* (the number of studies) without requiring the true within-study correlation to be known. [(Type - CONDITIONAL; Chapter - Ch2; Guardrails - G-03, G-15)]{.claim-meta} |
+| [CL-P1-03]{#cl-p1-03} | The sandwich is consistent under arbitrary misspecification of the within-study correlation structure (which is almost never known), provided the working model's marginal moments are calibrated to the data-generating process — the misspecification-robustness that motivates covariance recalibration. [(Type - CONDITIONAL; Chapter - Ch2; Guardrails - G-25)]{.claim-meta} |
+| [CL-P1-04]{#cl-p1-04} | Small-*m* RVE inflates Type I error (especially *m* < 8) unless a **named** small-sample correction is applied — HTZ, AHZ, CWB, or CR2 (Bell–McCaffrey); RVE without a named correction does not control Type I error in small-*m* meta-analysis. [(Type - EMPIRICAL; Chapter - Ch2; Guardrails - G-15)]{.claim-meta} |
+| [CL-P1-05]{#cl-p1-05} | CR2 (Bell–McCaffrey / @imbens2016) improves coverage on balanced designs but degrades under severe imbalance or skewed regressors, and its compound-symmetric / constant-subgroup-size conditions are not always met; CR2 is a design-specific tuning and an external comparator, not a universal fix or the calibration target. [(Type - CONDITIONAL; Chapter - Ch2; Guardrails - G-04, G-14)]{.claim-meta} |
+| [CL-P1-06]{#cl-p1-06} | Dependent effects are handled by either the aggregated (one-row-per-study) or correlated-effects (observation-level) working model; when moderators vary within study the **aggregated** representation ceases to exist, whereas the correlated-effects model remains well-defined with the sandwich applied at the observation level. [(Type - CONDITIONAL; Chapter - Ch2; Guardrails - G-05)]{.claim-meta} |
+| [CL-P1-07]{#cl-p1-07} | The Satterthwaite degrees-of-freedom approximation is routinely applied in frequentist RVE meta-regression to set effective df for tests/CIs; it is asymptotically justified but biased under severe imbalance or small *m*. [(Type - CONDITIONAL; Chapter - Ch2; Guardrails - G-15)]{.claim-meta} |
+| [CL-P1-08]{#cl-p1-08} | clubSandwich (Pustejovsky & Tipton) and robumeta (Fisher & Tipton) are the canonical software implementations of frequentist RVE with small-sample corrections (CR2, HTZ/AHZ, Satterthwaite df) and are the field-standard tooling for dependent-effect meta-analysis. [(Type - POSITIONING; Chapter - Ch2; Guardrails - —)]{.claim-meta} |
+
+:::
+
+## P2 — Bayesian meta-analysis & the missing analogue {#sec-ci-p2}
+
+::: {.cl-index}
+
+| Claim-ID | Statement |
+|:----------|:------------------------------------------------------------------------------|
+| [CL-P2-01]{#cl-p2-01} | Bayesian meta-analysis is modeling-centric and genuinely flexible — weakly informative priors, hierarchical random-effects, multivariate/correlated-effects, three-level, network, and location-scale heterogeneity models — and that prior/structural flexibility is real and well-documented. [(Type - EMPIRICAL; Chapter - Ch3; Guardrails - —)]{.claim-meta} |
+| [CL-P2-02]{#cl-p2-02} | We found no published Bayesian meta-analysis method that targets the RVE/CHE sandwich covariance as an explicit calibration target (in the frequentist-RVE sense), realigned under a Little/Rubin calibrated-Bayes license. [(Type - GAP-ASSERTION; Chapter - Ch3 / Ch6; Guardrails - G-23, G-27)]{.claim-meta} |
+| [CL-P2-03]{#cl-p2-03} | Because the Bayesian analyst keeps the posterior as the primary inferential object, the frequentist sandwich — though theoretically motivated — does not by itself supply a *named posterior target* a Bayesian workflow can adopt; the calibration object (a posterior with a specific sandwich-calibrated covariance) is not a standard object in the Bayesian meta-analysis literature. [(Type - POSITIONING; Chapter - Ch3; Guardrails - G-23)]{.claim-meta} |
+| [CL-P2-04]{#cl-p2-04} | Cheung's SEM–inverse-variance equivalence requires the Level-1 error variance be fixed equal to one and does not hold under heteroscedasticity; SEM-based meta-analysis [@cheung2008; @cheung2013] is therefore not a universal equivalent to frequentist RVE. [(Type - CONDITIONAL; Chapter - Ch3; Guardrails - G-26)]{.claim-meta} |
+| [CL-P2-05]{#cl-p2-05} | Multivariate/multilevel Bayesian meta-analysis [@jackson2011; @vandennoortgate2015; @fernandezcastilla2021] models within- and between-study dependence hierarchically and preserves observation-level design matrices when moderators vary within study, yet none pairs that structure with the calibrated-Bayes realignment of posterior covariance to a frequentist-RVE sandwich target. [(Type - CONDITIONAL; Chapter - Ch3; Guardrails - G-23)]{.claim-meta} |
+| [CL-P2-06]{#cl-p2-06} | Recent (2023–2025) Bayesian network meta-analysis integrating composite-likelihood / calibrated-Bayesian ideas [e.g., @wang2025] is an active methodological frontier, but these entries do not target the RVE/CHE sandwich covariance as an explicit calibration target under a Little/Rubin calibrated-Bayes license. [(Type - CONDITIONAL; Chapter - Ch3; Guardrails - G-23, G-27)]{.claim-meta} |
+
+:::
+
+## P3 — The calibrated-Bayes lens {#sec-ci-p3}
+
+::: {.cl-index}
+
+| Claim-ID | Statement |
+|:----------|:------------------------------------------------------------------------------|
+| [CL-P3-01]{#cl-p3-01} | The calibrated-Bayes principle — Bayesian models judged against frequentist operating characteristics, "preserve the center, realign the covariance" — is established prior art in @little2012 and @rubin1984. [(Type - CONDITIONAL; Chapter - Ch4; Guardrails - G-24)]{.claim-meta} |
+| [CL-P3-02]{#cl-p3-02} | Under the calibrated-Bayes license, an affine recoloring preserves the posterior **mean** while realigning the marginal covariance toward a frequentist target. [(Type - HEURISTIC; Chapter - Ch4; Guardrails - G-21, G-24)]{.claim-meta} |
+| [CL-P3-03]{#cl-p3-03} | @williams2021 / @savitsky2022 established the survey-estimation↔Bayesian-paradigm bridge via a Cholesky scale-and-shape projection that **double-weights** both the unit-level likelihood and the random-effect (group) prior; they never mention meta-analysis, and their bridge is approximate/asymptotic. [(Type - CONDITIONAL; Chapter - Ch4; Guardrails - G-01, G-02, G-07, G-08)]{.claim-meta} |
+| [CL-P3-04]{#cl-p3-04} | The Godambe sandwich / estimating-equation substrate [@binder1983; @varin2008; @varin2011] supplies the mathematical justification for treating covariance realignment as principled rather than ad hoc under model misspecification. [(Type - HEURISTIC; Chapter - Ch4; Guardrails - G-25)]{.claim-meta} |
+| [CL-P3-05]{#cl-p3-05} | Composite likelihood [@varin2008; @varin2011] is asymptotic and assumes estimable low-dimensional margins; under unknown within-study correlations its operating guarantees degrade — motivating, but not supplying, a covariance correction for dependent meta-analytic effects. [(Type - CONDITIONAL; Chapter - Ch4; Guardrails - G-25)]{.claim-meta} |
+| [CL-P3-06]{#cl-p3-06} | The unit-weight boundary (w_ij = 1 **and** w_θ = 1) is the configuration at which a posterior affinely recolored by the marginal RVE sandwich achieves an **exact finite-sample** identity between the posterior's marginal covariance and the RVE target — this review's own result, not S&W's asymptotic mechanism. [(Type - THEOREM; Chapter - Ch4; Guardrails - G-08, G-16, G-17)]{.claim-meta} |
+| [CL-P3-07]{#cl-p3-07} | CCC (Cholesky Calibration Correction) is this review's own coinage for the meta-analytic operationalization of the calibrated-Bayes principle, implementing the Williams & Savitsky scale-and-shape (Cholesky) projection mechanism. [(Type - POSITIONING; Chapter - Ch4; Guardrails - G-06)]{.claim-meta} |
+| [CL-P3-08]{#cl-p3-08} | CCC calibration is **blockwise by design** (β-block Cholesky on the marginal sandwich target; θ-block diagonal CE rescaling); the full-joint (β, θ) sandwich is structurally rank-deficient (rank ≤ J < K + J, incidental-parameter geometry), so full-joint Cholesky calibration is not attempted — a principled design choice, not a failure. [(Type - CONDITIONAL; Chapter - Ch4 / Ch5; Guardrails - G-10, G-11)]{.claim-meta} |
+| [CL-P3-09]{#cl-p3-09} | We found no prior Bayesian meta-analysis paper that has applied the calibrated-Bayes principle ("preserve center, realign covariance") to the RVE/CHE sandwich covariance as an explicit calibration target; this bridge from calibrated-Bayes philosophy to dependent-effect meta-analysis is this review's contribution. [(Type - POSITIONING; Chapter - Ch4 / Ch6; Guardrails - G-01, G-23, G-24, G-27)]{.claim-meta} |
+| [CL-P3-10]{#cl-p3-10} | In the CCC working model, ρ is the **conditional residual (Level-1) working correlation** of y_j given (β, θ_j) — **not** the marginal intra-class correlation, which is inflated by τ² through Σ_j(τ²) = V_j + τ²·11ᵀ; the fixed-ρ / equicorrelation specification is a working-model / reporting-scope choice, not the logical site where exactness arises. [(Type - CONDITIONAL; Chapter - Ch4 / Ch5; Guardrails - G-19, G-20)]{.claim-meta} |
+| [CL-P3-11]{#cl-p3-11} | CCC (Cholesky Calibration Correction) fills the identified gap: it matches a named CR2 / RVE sandwich covariance **exactly** (finite-sample, at the unit-weight boundary) while **leaving coverage as a separately demonstrated, asymptotic operating characteristic** — the affirmative contribution statement that closes the thesis spine. [(Type - POSITIONING; Chapter - Ch6; Guardrails - G-06, G-09, G-16)]{.claim-meta} |
+
+:::
+
+## P4 — Why Bayesian RVE specifically {#sec-ci-p4}
+
+::: {.cl-index}
+
+| Claim-ID | Statement |
+|:----------|:------------------------------------------------------------------------------|
+| [CL-P4-01]{#cl-p4-01} | A specifically Bayesian RVE delivers three things frequentist RVE cannot easily provide: flexible prior modeling of heterogeneity, preservation of observation-level multilevel structure, and predictor-specific (per-coefficient) diagnostics. [(Type - POSITIONING; Chapter - Ch5; Guardrails - —)]{.claim-meta} |
+| [CL-P4-02]{#cl-p4-02} | Flexible Bayesian prior modeling of heterogeneity is the natural launchpad for Bayesian network-meta-analysis extensions. [(Type - CONDITIONAL; Chapter - Ch5; Guardrails - —)]{.claim-meta} |
+| [CL-P4-03]{#cl-p4-03} | The unaggregated (observation-level) Bayesian likelihood preserves within-study design matrices even when moderators vary within study — the regime where the frequentist aggregated representation ceases to exist. [(Type - CONDITIONAL; Chapter - Ch5; Guardrails - G-05)]{.claim-meta} |
+| [CL-P4-04]{#cl-p4-04} | A per-coefficient design-effect-ratio (DER) diagnostic reveals *which* coefficients need correction, enabling selective predictor-specific variance correction — a capability frequentist RVE (all-or-nothing) does not easily provide. [(Type - POSITIONING; Chapter - Ch5; Guardrails - G-22)]{.claim-meta} |
+| [CL-P4-05]{#cl-p4-05} | The MCMC-vs-CCC design-effect-ratio comparison is a data-driven diagnostic for identifying correction-sensitive parameters in meta-analytic dependent-effect inference; this review motivates it and points to a forthcoming companion paper, which develops it. [(Type - POSITIONING; Chapter - Ch5; Guardrails - G-22)]{.claim-meta} |
+| [CL-P4-06]{#cl-p4-06} | We found no published method that combines MCMC-based Bayesian inference with per-coefficient design-effect-ratio diagnostics for meta-analytic dependent effect sizes. [(Type - GAP-ASSERTION; Chapter - Ch5 / Ch6; Guardrails - G-22, G-23)]{.claim-meta} |
+| [CL-P4-07]{#cl-p4-07} | Theorem 1 (Conditional Identity):** given a correctly specified within-study covariance and unit weights, the Cholesky-affine calibrated posterior's covariance matches the target RVE sandwich covariance exactly in finite samples, over the matched equicorrelation family V_j = a_j C_j(ρ) (compound-symmetric class). [(Type - THEOREM; Chapter - Ch5; Guardrails - G-16, G-17)]{.claim-meta} |
+| [CL-P4-08]{#cl-p4-08} | Theorem 2 (Marginal Identity):** the calibrated posterior's marginal covariance (integrating out the random intercepts θ_j) matches the known marginal RVE sandwich target exactly under unit weights, for any matched marginal Gaussian kernel — strictly more general than Theorem 1. [(Type - THEOREM; Chapter - Ch5; Guardrails - G-18)]{.claim-meta} |
+| [CL-P4-09]{#cl-p4-09} | Corollary 1 (Identity Under Correct Specification):** under correct model specification with unit weights, the calibrated and uncalibrated posterior covariances coincide — the correction is neutral when the working model is right. [(Type - THEOREM; Chapter - Ch5; Guardrails - G-12)]{.claim-meta} |
+| [CL-P4-10]{#cl-p4-10} | Covariance-matching (the three CCC theorems) is an exact finite-sample algebraic property; coverage is a **separate** operating-characteristic claim, asymptotic in *J* and demonstrated only by simulation. [(Type - EMPIRICAL; Chapter - Ch5; Guardrails - G-09, G-13)]{.claim-meta} |
+
+:::
+
+---
+
+*The `G-NN` identifiers are the 27 overclaim cautions (forbidden phrasing → required rewrite → provenance) defined in the guardrail callouts at the start of each chapter. They are editorial discipline rules, named here for transparency but not separately hyperlinked.*
